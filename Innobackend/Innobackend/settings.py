@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainApp',
-    
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -76,9 +77,17 @@ WSGI_APPLICATION = 'Innobackend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'SOC',
+        'USER': 'root',
+        'PASSWORD': 'JASL2005',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'init_command': "SET collation_connection = 'utf8mb4_unicode_ci'",
+        },
     }
 }
 
@@ -123,3 +132,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+
