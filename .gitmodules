@@ -1,0 +1,3 @@
+[submodule "inno_frontend"]
+    path = inno_frontend
+    url = https://github.com/MDGSpace-SoC-2023/cipherSprint/inno_frontend
