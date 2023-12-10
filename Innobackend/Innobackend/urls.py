@@ -20,5 +20,5 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/',include('mainApp.urls'))
+    path('inno_api/',include('mainApp.urls'))
 ]
