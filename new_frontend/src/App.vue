@@ -1,26 +1,26 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+  import NavigationBar from "./components/NavigationBar.vue"
 </script>
 
+<template>
+  <NavigationBar />
+</template>
+
+
+
 <style>
+/* Apply background image to the entire screen */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /* Add other styles or content for your component */
+  background-image: url('./assets/Background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
 }
 </style>
