@@ -5,5 +5,3 @@ from mainApp.serializers import Project_Serializer
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset=Project.objects.all()
     serializer_class=Project_Serializer
-    
-    
