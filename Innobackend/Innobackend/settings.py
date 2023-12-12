@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'SOC',
         'USER': 'root',
         'PASSWORD': 'JASL2005',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
