@@ -10,17 +10,18 @@
 
 <style>
 /* Apply background image to the entire screen */
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
-#app {
+body {
   /* Add other styles or content for your component */
   background-image: url('./assets/Background.jpg');
+  width:100%;
+  margin: 0;
+  padding: 0;
   background-size: cover;
-  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height:100%;
 }
 </style>

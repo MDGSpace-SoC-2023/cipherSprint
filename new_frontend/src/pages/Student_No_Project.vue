@@ -8,7 +8,7 @@
   
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
-    <ProjectCard />
+    <ProjectCard title="🧾 | Project Name" />
 
     <!--Proposal Maker -->
     <ProposalCard />

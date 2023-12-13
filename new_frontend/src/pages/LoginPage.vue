@@ -4,12 +4,12 @@
     <div class="row justify-content-center">
         <div class="col-md-10 login-form">
             <h2 class="text-center my-4">LOGIN</h2>
-            <form @submit.prevent="$store.commit('submitForm')">
+            <form @submit.prevent="$store.commit('a/submitForm')">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="username" placeholder="👤 | Username" v-model="$store.state.username">
+                    <input type="text" class="form-control" id="username" placeholder="👤 | Username" v-model="$store.state.a.username">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control mt-3" id="password" placeholder="🔒 | Password" v-model="$store.state.password">
+                    <input type="password" class="form-control mt-3" id="password" placeholder="🔒 | Password" v-model="$store.state.a.password">
                 </div>
                 <div class=" text-center">
                     <button type="submit" class="btn btn-outline-success my-3  mx-auto ">Login</button>
