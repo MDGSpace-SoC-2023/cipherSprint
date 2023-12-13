@@ -4,4 +4,5 @@ from mainApp.models import Resume
 class Resume_Serializer(serializers.ModelSerializer):
     class Meta:
         model=Resume
-        field='__all__'
+        fields='__all__'
+

@@ -7,9 +7,8 @@ class Consumer(WebsocketConsumer):
 
    
     def connect(self):
-        self.card_id=self.scope['url_route']['kwargs']['card_id']
-        self.pid=f'card_{self.pid}'
-        self.room_group_name=f'card_{self.pid}'
+        self.pid=self.scope['url_route']['kwargs']['pid']
+        self.room_group_name=f'project_{self.pid}'
          
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,

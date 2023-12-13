@@ -4,4 +4,4 @@ from mainApp.models import Fields_Project
 class Field_Serializer(serializers.ModelSerializer):
     class Meta:
         model=Fields_Project
-        field='__all__'
+        fields='__all__'
