@@ -13,7 +13,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><RouterLink to="/" class="nav-link px-2 text-secondary">Home</RouterLink></li>
           <li><RouterLink to="/noproject" class="nav-link px-2 text-white">Features</RouterLink></li>
-          <li><RouterLink to="/" class="nav-link px-2 text-white">FAQs</RouterLink></li>
+          <li><RouterLink to="/project" class="nav-link px-2 text-white">FAQs</RouterLink></li>
         </ul>
 
         <div class="text-end">

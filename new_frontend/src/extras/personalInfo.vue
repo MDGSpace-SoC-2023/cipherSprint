@@ -6,7 +6,7 @@
       <h5 class="card-title text-center"> Personal Info</h5>
 
       <!-- Form -->
-      <form @submit.prevent="$store.commit('b/submitInfo')" class="d-flex flex-wrap justify-content-between">
+      <form  class="d-flex flex-wrap justify-content-between infoBox">
         <Form_Input  Id="name" title="Name" v-model="$store.state.b.name" class="p-2" />
         <Form_Input  Id="city" title="City" v-model="$store.state.b.city" class="p-2" />
         <Form_Input  Id="blood_group" title="Blood Group" v-model="$store.state.b.blood_group" class="p-2" />

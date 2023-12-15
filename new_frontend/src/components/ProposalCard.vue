@@ -1,14 +1,25 @@
 <template>
-    <div class="card mt-5">
-    <h5 class="card-header">Proposal Maker</h5>
+    <div class="card mt-3 mx-3">
+    <h5 class="card-header">{{ heading }}</h5>
     <div class="card-body">
-      <p class="card-text">Interested to be a part of any project click the button below.</p>
-      <router-link :to="{name: 'proposalMaker',}" class="btn btn-outline-success text-black">Design your Proposal</router-link>
+      <p class="card-text">{{ desc }}</p>
+      <router-link :to="{name:linkName}" class="btn btn-outline-success text-black">Design your Proposal</router-link>
     </div>   
 </div>
 </template>
 
-<style scoped>
+<script>
+  export default{
+    name:'ProposalCard',
+    props:{
+      linkName:String,
+      heading:String,
+      desc:String,
+    }
+  }
+</script>
+
+<style >
   .card-header{
     background-color: rgb(80, 183, 158);
   }

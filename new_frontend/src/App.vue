@@ -1,9 +1,11 @@
 <script setup>
   import NavigationBar from "./components/NavigationBar.vue"
+  import footerBar from "./components/footerBar.vue";
 </script>
 
 <template>
   <NavigationBar />
+  <footerBar />
 </template>
 
 
@@ -23,5 +25,6 @@ body {
   -o-background-size: cover;
   background-repeat: no-repeat;
   height:100%;
+  overflow-x: hidden;
 }
 </style>

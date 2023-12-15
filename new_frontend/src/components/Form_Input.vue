@@ -15,8 +15,13 @@ export default{
     },
 }
 </script>
-<style>
+<style scoped>
  .formInput{
     width:45%;
+ }
+ @media screen and (max-width: 570px) {
+ .formInput{
+    width:90%;
+ }
  }
 </style>

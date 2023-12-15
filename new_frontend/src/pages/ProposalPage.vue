@@ -1,34 +1,34 @@
 <template>
-<div class="d-flex">
-    <div class="container mt-4 col-md-3 mx-3">
+<div class="d-flex proposalBox">
+    <div class="container mt-4 col-md-3 mx-3 cardBox">
   
         <div class="card colorCode">
           <div class="card-body">
             <!-- Options for different fields -->
             <div class="d-flex flex-wrap justify-content-between ">
-              <ProjectCard class="col-lg-5 mx-1 mt-3" title="Personal Info" @click="goToPage(1)"/>
-              <ProjectCard class="col-lg-5 mx-1 mt-3" title="Work Experience" @click="goToPage(2)" />
-              <ProjectCard class="col-lg-5 mx-1 mt-5" title="Education" @click="goToPage(4)" />
-              <ProjectCard class="col-lg-5 mx-1 mt-5" title="Areas of Expertise" @click="goToPage(3)" />
-              <ProjectCard class="col-lg-5 mx-1 mt-5" title="Preview" @click="isVisible=!isVisible" />
+              <ProjectCard link_name="proposalMaker" class="col-lg-5 mx-1 mt-3" title="Personal Info" @click="goToPage(1)"/>
+              <ProjectCard link_name="proposalMaker" class="col-lg-5 mx-1 mt-3" title="Work Experience" @click="goToPage(2)" />
+              <ProjectCard link_name="proposalMaker" class="col-lg-5 mx-1 mt-3" title="Education" @click="goToPage(4)" />
+              <ProjectCard link_name="proposalMaker" class="col-lg-5 mx-1 mt-3" title="Areas of Expertise" @click="goToPage(3)" />
+              <ProjectCard link_name="proposalMaker" class="col-lg-5 mx-1 mt-3" title="Preview" @click="isVisible=!isVisible" />
             </div>
           </div>
         </div>
     </div>
-    <div v-if="!isVisible" class="container mt-1 col-md-6">
+    <div v-if="!isVisible" class="container mt-1 col-lg-6 col-md-9">
     <component
       v-for="(componentName, index) in paginatedComponents"
       :key="index"
       :is="componentName"
     />
+    <div class="modifyPaginate mt-3">
     <paginate
       :page-count="totalPages"
       :click-handler="goToPage"
       :prev-text="'Previous'"
       :next-text="'Next'"
       :container-class="'pagination'"
-      class="modifyPaginate mt-3 align-content-center"
-    ></paginate>
+    ></paginate></div>
   </div>
   <div v-if="isVisible" class="container my-1 col-md-6">
     <personalInfo />
@@ -88,9 +88,21 @@ export default{
 </script>
 <style>
  .modifyPaginate{
-    margin-left:30vh;
+    display: flex;
+    justify-content: center;
  }
  .colorCode{
   background-color:rgb(23, 66, 97) ;
+ }
+ @media screen and (max-width: 570px) {
+ .proposalBox{
+  flex-direction: column;
+ }
+ .cardBox{
+  margin:1.5rem 0 !important
+ }
+ .infoBox{
+  flex-direction: column;
+ }
  }
 </style>

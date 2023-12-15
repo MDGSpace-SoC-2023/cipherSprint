@@ -6,7 +6,7 @@
       <h5 class="card-title text-center">Work Experience</h5>
 
       <!-- Form -->
-      <form class="d-flex flex-wrap justify-content-between ">
+      <form class="d-flex flex-wrap justify-content-between infoBox">
         <Form_Input  Id="organization" title="Name of Organization" v-model="$store.state.b.organization"  class="p-2" />
         <Form_Input  Id="post" title="Post" v-model="$store.state.b.post"  class="p-2"  />
         <Form_Input  Id="responsibilities" title="Responsibilities" v-model="$store.state.b.responsibilities"  class="p-2" />

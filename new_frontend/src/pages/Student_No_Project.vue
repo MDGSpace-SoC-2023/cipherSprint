@@ -8,10 +8,10 @@
   
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
-    <ProjectCard title="🧾 | Project Name" />
+    <ProjectCard title="🧾 | Project Name" link_name="home" />
 
     <!--Proposal Maker -->
-    <ProposalCard />
+    <ProposalCard linkName="proposalMaker" heading="Proposal Maker" desc="Interested to be a part of any project click the button below." />
 
    </div>
 </template>

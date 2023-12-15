@@ -6,7 +6,7 @@
       <h5 class="card-title text-center">Education Info</h5>
 
       <!-- Form -->
-      <form class="d-flex flex-wrap justify-content-between ">
+      <form class="d-flex flex-wrap justify-content-between infoBox ">
         <Form_Input  Id="branch" title="Branch" v-model="$store.state.b.branch"  class="p-2" />
         <Form_Input  Id="degree" title="Degree" v-model="$store.state.b.degree"  class="p-2" />
         <Form_Input  Id="college" title="Name of College" v-model="$store.state.b.college"  class="p-2" />
