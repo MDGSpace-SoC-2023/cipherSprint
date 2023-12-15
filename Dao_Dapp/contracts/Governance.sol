@@ -19,7 +19,7 @@ contract Governance is ERC20, ERC20Votes, ERC20Permit {
 
    
   function _update(address from,address to,uint256 value) internal virtual override (ERC20, ERC20Votes){
-    return super._update(from,to,value);
+    super._update(from,to,value);
   }
  
 
