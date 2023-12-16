@@ -73,10 +73,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Innobackend.wsgi.application'
+ASGI_APPLICATION = 'Innobackend.asgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 DATABASES = {
         'default': {
@@ -84,7 +94,7 @@ DATABASES = {
         'NAME': 'SOC',
         'USER': 'root',
         'PASSWORD': 'JASL2005',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
