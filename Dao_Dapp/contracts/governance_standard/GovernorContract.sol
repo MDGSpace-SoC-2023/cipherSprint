@@ -6,16 +6,15 @@ import "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
-import "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol";
 
-contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction, GovernorTimelockControl {
-    constructor(IVotes _token, TimelockController _timelock,uint48 _votingDelay,uint32 _votingPeriod,uint256 _quorumPercentage)
+abstract contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple, GovernorVotes, GovernorVotesQuorumFraction{
+    constructor(IVotes _token,uint48 _votingDelay,uint32 _votingPeriod,uint256 _quorumPercentage)
         Governor("GovernorContract")
         GovernorSettings(_votingDelay /* 1 day */, _votingPeriod /* 1 week */, 0)
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(_quorumPercentage) 
-        GovernorTimelockControl(_timelock) 
     {}
+
 
     // The following functions are overrides required by Solidity.
 
@@ -49,7 +48,7 @@ contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple,
     function state(uint256 proposalId)
         public
         view
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
         returns (ProposalState)
     {
         return super.state(proposalId);
@@ -58,7 +57,7 @@ contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple,
     function proposalNeedsQueuing(uint256 proposalId)
         public
         view
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
         returns (bool)
     {
         return super.proposalNeedsQueuing(proposalId);
@@ -75,7 +74,7 @@ contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple,
 
     function _queueOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
         internal
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
         returns (uint48)
     {
         return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
@@ -83,14 +82,14 @@ contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple,
 
     function _executeOperations(uint256 proposalId, address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
         internal
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
     {
         super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
     }
 
     function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
         internal
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
         returns (uint256)
     {
         return super._cancel(targets, values, calldatas, descriptionHash);
@@ -99,7 +98,7 @@ contract GovernorContract is Governor, GovernorSettings, GovernorCountingSimple,
     function _executor()
         internal
         view
-        override(Governor, GovernorTimelockControl)
+        override(Governor)
         returns (address)
     {
         return super._executor();
