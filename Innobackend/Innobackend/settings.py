@@ -54,7 +54,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Innobackend.urls'
-AUTH_USER_MODEL='mainApp.CustomUser'
 CORS_ALLOW_ALL_ORIGINS = True
 
 

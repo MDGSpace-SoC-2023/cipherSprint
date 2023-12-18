@@ -10,16 +10,16 @@ class LoginView(APIView):
     permission_classes=[AllowAny]
     
     def post(self,request,*args,**kwargs):
-        email=request.data.get('email')
+        username=request.data.get('username')
         pwd=request.data.get('password')
 
-        if email is None:
-            return Response({'error': 'Incomplete credentials- EMAIL MISSING'}, status=status.HTTP_401_UNAUTHORIZED)
+        if username is None:
+            return Response({'error': 'Incomplete credentials- Username MISSING'}, status=status.HTTP_401_UNAUTHORIZED)
         
         if pwd is None:
             return Response({'error': 'Invalid credentials-PASSWORD MISSING'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        user=authenticate(request,model=CustomUser,email=email,password=pwd)
+        user=authenticate(request,model=CustomUser,username=username,password=pwd)
 
         if user:
             login(request,user)
