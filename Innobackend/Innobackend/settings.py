@@ -54,7 +54,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Innobackend.urls'
-AUTH_USER_MODEL='mainApp.CustomUser'
 CORS_ALLOW_ALL_ORIGINS = True
 
 
@@ -73,6 +72,14 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+# AUTH_USER_MODEL = 'mainApp.CustomUser'
+
 
 WSGI_APPLICATION = 'Innobackend.wsgi.application'
 ASGI_APPLICATION = 'Innobackend.asgi.application'
@@ -152,3 +159,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
