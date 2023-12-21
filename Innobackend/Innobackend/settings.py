@@ -54,8 +54,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Innobackend.urls'
+
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
+CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
@@ -75,6 +80,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'rest_framework.authentication.SessionAuthentication',
 ]
 
 
