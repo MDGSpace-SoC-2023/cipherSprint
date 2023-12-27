@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10 login-form">
             <h2 class="text-center my-4">LOGIN</h2>
-            <form @submit.prevent="$store.commit('a/submitForm')">
+            <form @submit.prevent="submitLoginForm">
                 <div class="form-group">
                     <input type="text" class="form-control" id="username" placeholder="👤 | Username" v-model="$store.state.a.username">
                 </div>
@@ -14,6 +14,7 @@
                 <div class=" text-center">
                     <button type="submit" class="btn btn-outline-success my-3  mx-auto ">Login</button>
                 </div>
+                <div v-if="errorMessage" class="error-box" :style="{ background: 'red', color: 'white', padding: '7px',margin:'5px', border: '1px solid red' }">{{errorMessage}}</div>
             </form>
         </div>
     </div>
@@ -21,9 +22,21 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex';
   export default({
     name: 'LoginPage',
-  })
+    computed: {
+      ...mapGetters('a', ['errorMessage']),
+    },
+    methods:{
+       submitLoginForm() {
+       const username = this.$store.state.a.username;
+      console.log('Username submitted:', username);
+      this.$store.dispatch('a/login');
+      },
+    }
+    }
+  )
 </script>
 
 
