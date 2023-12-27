@@ -1,12 +1,13 @@
 import backend_client from "../../../BackendClient"
+import router from "../../router";
 
 const login_module={
     namespaced: true,
     state : {
-        username :undefined,
+        username:undefined,
         password : undefined,
         isLoggedIn:false,
-        user_info:[],
+        user_info:{},
         error_message:"",
       },
      mutations : {
@@ -21,6 +22,9 @@ const login_module={
       },
       setErrorMessage(state,error_message){
         state.error_message=error_message;
+      },
+      setUserInfo(state,user_info){
+        state.user_info=user_info;
       }
       },
       
@@ -32,13 +36,13 @@ const login_module={
               data={}
             }
             else if((state.username==undefined || state.username=="") && (state.password!=undefined && state.password!="")){
-              data={password:state.password}
+              data={"password":state.password}
             }
             else if((state.username!=undefined && state.username!="") && (state.password==undefined || state.password=="")){
-               data={username:state.username}
+               data={"username":state.username}
             }
             else{
-              data={username:state.username,password:state.password}
+              data={"password":state.password,"username":state.username}
             }
             console.log(data)
             console.log(backend_client)
@@ -47,11 +51,13 @@ const login_module={
               if(response.data.error!=undefined){
                 console.log(response.data.error)
                 commit("setErrorMessage",response.data.error)
-
               }
               else{
-                sessionStorage.setItem('sessionId',response.data.session_id)
-                console.log(sessionStorage.sessionId)
+                commit("setUserInfo",response.data.user);
+                console.log(state.user_info.username);
+                localStorage.setItem('sessionId',response.data.session_id)
+                console.log(localStorage.sessionId)
+                router.push({ name: "noProject" });
               }
           })
           }
