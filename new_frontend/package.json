@@ -1,5 +1,5 @@
 {
-  "name": "new_frontend",
+  "name": "ino-front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^1.6.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-advanced-chat": "^2.0.10",
@@ -20,7 +21,7 @@
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@types/bonjour": "^3.5.13",
-    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
