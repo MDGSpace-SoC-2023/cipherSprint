@@ -14,7 +14,6 @@ class CustomUser(AbstractUser):
     research_interests = models.ManyToManyField('ResearchArea', related_name='professors', blank=True)
 
 
-
 class ResearchArea(models.Model):
     name = models.CharField(max_length=255, unique=True)
     # Add more fields as needed
@@ -45,6 +44,8 @@ class Messages(models.Model):
     content=models.TextField()
     sender=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     pid=models.ForeignKey(Project,on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
     
 
 
