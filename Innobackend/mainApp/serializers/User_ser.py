@@ -6,7 +6,7 @@ class User_Serializer(serializers.ModelSerializer):
     research_interests=Research_Serializer(many=True)
     class Meta:
         model=CustomUser
-        fields=['username','is_student','is_prof','year','degree','dept','position','bio','research_interests']
+        fields=['id','username','is_student','is_prof','year','degree','dept','position','bio','research_interests']
 
 class User_Serializer_for_messages(serializers.ModelSerializer):
     class Meta:

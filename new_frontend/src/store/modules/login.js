@@ -68,6 +68,7 @@ const login_module={
       },
       getters: {
         errorMessage: (state) => state.error_message,
+        getUser: state => state.user_info,
       },
       
 }
