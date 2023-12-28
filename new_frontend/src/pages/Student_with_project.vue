@@ -9,6 +9,7 @@
                 <ProposalCard linkName="ideaProposal" heading="Idea Proposal" desc="Any unique idea for the project click the button below."/>
                 <chatBot />
             </div>
+            <button v-if="$store.state.a.userInfo.is_prof===true" class="btn btn-dark ">View Resume Submitted</button>
         </div>
     </div>
 </template>
