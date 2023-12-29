@@ -1,6 +1,4 @@
-// axios.js
 import axios from 'axios';
-
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -11,3 +9,4 @@ const backend_client = axios.create({
 });
 
 export default backend_client;
+>>>>>>>>> Temporary merge branch 2

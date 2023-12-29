@@ -20,7 +20,6 @@ class CustomUser(models.Model):
     class Meta:
         db_table = 'CustomUser'
 
-
 class ResearchArea(models.Model):
     id = models.BigAutoField(primary_key=True) 
     name = models.CharField(max_length=255, unique=True)
@@ -56,6 +55,8 @@ class Messages(models.Model):
     content=models.TextField()
     sender=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     pid=models.ForeignKey(Project,on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
     
 
 

@@ -4,7 +4,7 @@ import Student_No_Project from '@/pages/Student_No_Project.vue';
 import ProposalPage from '@/pages/ProposalPage.vue';
 import Student_with_Project from '../pages/Student_with_project.vue'
 import IdeaProposal from "../pages/IdeaProposal.vue"
-import FacultyPage from "../pages/FacultyPage.vue"
+import ResumePage from "../pages/ResumePage.vue"
 import ChatPage from "../pages/ChatPage.vue"
 import { check_login } from '@/Is_authenticated';
 

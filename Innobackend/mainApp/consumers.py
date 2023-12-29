@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer,WebsocketConsumer
-from mainApp.models import CustomUser
+from mainApp.models import CustomUser,Messages
 from asgiref.sync import async_to_sync,sync_to_async
 
 class Consumer(WebsocketConsumer):
@@ -32,6 +32,8 @@ class Consumer(WebsocketConsumer):
         try:
             user=CustomUser.objects.get(username=sender)
             print(user)
+            newMessage = Message(sender=sender,content=message)
+            newMessage.save()
         except :
             self.send({"message":"User not found"})
         print("Hi")
