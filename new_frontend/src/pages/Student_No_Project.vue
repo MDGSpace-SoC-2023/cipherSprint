@@ -9,13 +9,15 @@
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
     <div v-for="project in getProjects" :key="project.pk">
-      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="home" />
+      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="ideas" :pid="project.pk" />
     </div>
 
     <!--Proposal Maker -->
-    <ProposalCard linkName="proposalMaker" heading="Proposal Maker" desc="Interested to be a part of any project click the button below." />
+    <div class="text-center">
+      <router-link :to="{name:'proposalMaker'}" class="btn btn-outline-success text-black mt-3">Design your Proposal</router-link>
+    </div>
+    </div>
 
-   </div>
 </template>
 
 <script>
@@ -30,7 +32,6 @@
     const uid = this.getUser.id;
     console.log(uid);
     this.$store.dispatch('e/get_pro',{uid});
-
   },
   components: {
     ProjectCard,
@@ -43,12 +44,8 @@
 }
 </script>
 
-
-
 <script setup>
   import ProjectCard from '@/components/ProjectCard.vue';
-  import ProposalCard from '../components/ProposalCard.vue'
-  
 </script>
 
 <style scoped>
@@ -57,5 +54,8 @@
   }
   h1{
     color:rgb(80, 183, 158);
+  }
+  .shiftBottom{
+    margin-top: 12vh;
   }
 </style>
