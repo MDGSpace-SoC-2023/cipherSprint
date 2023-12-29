@@ -9,4 +9,3 @@ const backend_client = axios.create({
 });
 
 export default backend_client;
->>>>>>>>> Temporary merge branch 2

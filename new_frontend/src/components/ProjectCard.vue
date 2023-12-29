@@ -17,7 +17,7 @@ export default {
   methods: {
     setPro() {
       let pid=this.pid;
-      console.log(pid);
+      console.log(`project${pid}`);
       this.$store.dispatch('e/setPro',{pid} );
     },
   },

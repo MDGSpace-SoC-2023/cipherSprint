@@ -11,7 +11,7 @@ import { check_login } from '@/Is_authenticated';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/',name:'home', component: FacultyPage ,meta: { requiresAuth: true },},
+        { path: '/resumelist', component: ResumePage,meta: { requiresAuth:true }, },
         { path: '/login', component: LoginPage,meta: { requiresAuth: false }, },
         { path: '/noproject',name:"noProject", component: Student_No_Project,meta: { requiresAuth: true }, },
         { path: '/proposalmaker',name:'proposalMaker', component: ProposalPage , props:true,meta: { requiresAuth: true },},

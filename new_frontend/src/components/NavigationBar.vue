@@ -14,7 +14,7 @@
           <li><RouterLink to="/" class="nav-link px-2 text-secondary">Home</RouterLink></li>
           <li><RouterLink to="/noproject" class="nav-link px-2 text-white">Features</RouterLink></li>
           <li><RouterLink to="/project" class="nav-link px-2 text-white">Project</RouterLink></li>
-          <li><RouterLink to="/noproject" v-if="$store.state.a.userInfo.is_prof===true" class="nav-link px-2 text-white">Resume</RouterLink></li>
+          <li><RouterLink to="/noproject" v-if="$store.state.a.user_info.is_prof===true" class="nav-link px-2 text-white">Resume</RouterLink></li>
         </ul>
 
         <div class="text-end">

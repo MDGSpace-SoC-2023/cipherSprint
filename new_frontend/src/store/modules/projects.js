@@ -23,9 +23,9 @@ const projects_module={
                 else{
                   console.log(response.data);
                   commit("setProjects",response.data.projects);
+                  console.log("STATE PROJECTS");
                   console.log([...state.projects]);
                 }
-        
             }
             catch(error){
               console.log(error)
@@ -34,15 +34,12 @@ const projects_module={
           async setPro({state,commit},payload){
             try{
                 let pid=payload.pid;
-                console.log(pid);
+                console.log(`Entered setpro ${pid}`);
                 console.log([...state.projects]);
-                for(let i in state.projects){
-                  if(i.pk==pid){
-                    commit("setCurPro",i);
-                    console.log([...state.cur_Selected]);
-                    break;
-                  }
-                }
+                const response=await backend_client.get(`project/${payload.pid}/`);
+                commit("setCurPro",response.data);
+                console.log("CURRENT PROJECT");
+                console.log([...state.cur_Selected]);
             }
             catch(error){
               console.log(error)
@@ -51,7 +48,7 @@ const projects_module={
 
     },
     getters:{
-        getProjects: state => state.projects,
+        getProjects:state => state.projects,
         getCurPro:state=>state.cur_Selected,
         getCurProN:state => state.cur_Selected.project_topic,
     }
