@@ -8,7 +8,7 @@
   
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
-    <div v-for="project in projects" :key="project.pk">
+    <div v-for="project in getProjects" :key="project.pk">
       <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="home" />
     </div>
 
@@ -23,14 +23,14 @@
 
   export default{
   computed: {
-    ...mapGetters('projects', ['getProjects']),
+    ...mapGetters('e', ['getProjects']),
     ...mapGetters('a', ['getUser']),
   },
   created() {
     const uid = this.getUser.id;
     console.log(uid);
     this.$store.dispatch('e/get_pro',{uid});
-    
+
   },
   components: {
     ProjectCard,

@@ -12,16 +12,16 @@ const projects_module={
     actions : {
         async get_pro({state,commit},payload){
             try{
-              backend_client.get(`project/project_user/${payload.uid}`).then(response=>{
+              const response=await backend_client.get(`project/project_user/${payload.uid}`);
                 if(response.data.error!=undefined){
                   console.log(response.data.error)
                 }
                 else{
-                  console.log(response.data)
+                  console.log(response.data);
                   commit("setProjects",response.data.projects);
-                  console.log(state.projects);
+                  console.log([...state.projects]);
                 }
-            })
+        
             }
             catch(error){
               console.log(error)
