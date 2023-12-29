@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-center mt-3">Project Name</h1>
+        <h1 class="text-center mt-3">{{getCurProN}}</h1>
         <div class="d-flex flex-column p-4 gap-4 py-md-5 align-items-center justify-content-center">
             <VoteCard title="🧾 | Idea 1" />
             <VoteCard title="🧾 | Idea 2" />
@@ -12,6 +12,16 @@
         </div>
     </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters('e', ['getCurProN']),
+  },
+};
+</script>
 
 <script setup>
  import VoteCard from "../components/VoteCard.vue"

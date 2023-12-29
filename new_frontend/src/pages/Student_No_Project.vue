@@ -9,7 +9,7 @@
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
     <div v-for="project in getProjects" :key="project.pk">
-      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="home" />
+      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="ideas" pid={{project.pk}} />
     </div>
 
     <!--Proposal Maker -->

@@ -2,11 +2,15 @@ import backend_client from "../../../BackendClient";
 const projects_module={
     namespaced: true,
     state : {
-        projects:[]
+        projects:[],
+        cur_Selected:{},
       },
     mutations : {
         setProjects(state, projects) {
             state.projects = projects;
+          },
+          setCurPro(state, project) {
+            state.cur_Selected = project;
           },
       },
     actions : {
@@ -26,10 +30,30 @@ const projects_module={
             catch(error){
               console.log(error)
             }
-          }
+          },
+          async setPro({state,commit},payload){
+            try{
+                let pid=payload.pid;
+                console.log(pid);
+                console.log([...state.projects]);
+                for(let i in state.projects){
+                  if(i.pk==pid){
+                    commit("setCurPro",i);
+                    console.log([...state.cur_Selected]);
+                    break;
+                  }
+                }
+            }
+            catch(error){
+              console.log(error)
+            }
+          },
+
     },
     getters:{
         getProjects: state => state.projects,
+        getCurPro:state=>state.cur_Selected,
+        getCurProN:state => state.cur_Selected.project_topic,
     }
       
 }
