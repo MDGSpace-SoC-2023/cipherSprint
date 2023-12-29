@@ -8,7 +8,9 @@
   
     <!--List of all Projects -->
     <h1 class="text-center">PROJECTS</h1>
-    <ProjectCard title="🧾 | Project Name" link_name="home" />
+    <div v-for="project in getProjects" :key="project.pk">
+      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="home" />
+    </div>
 
     <!--Proposal Maker -->
     <ProposalCard linkName="proposalMaker" heading="Proposal Maker" desc="Interested to be a part of any project click the button below." />
@@ -16,9 +18,37 @@
    </div>
 </template>
 
+<script>
+  import { mapGetters } from 'vuex';
+
+  export default{
+  computed: {
+    ...mapGetters('e', ['getProjects']),
+    ...mapGetters('a', ['getUser']),
+  },
+  created() {
+    const uid = this.getUser.id;
+    console.log(uid);
+    this.$store.dispatch('e/get_pro',{uid});
+
+  },
+  components: {
+    ProjectCard,
+  },
+  watch: {
+  getProjects(newValue) {
+    console.log('Projects updated:', newValue);
+  },
+},
+}
+</script>
+
+
+
 <script setup>
   import ProjectCard from '@/components/ProjectCard.vue';
   import ProposalCard from '../components/ProposalCard.vue'
+  
 </script>
 
 <style scoped>

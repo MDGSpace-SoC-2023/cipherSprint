@@ -22,6 +22,7 @@ class CustomUser(models.Model):
 
 
 class ResearchArea(models.Model):
+    id = models.BigAutoField(primary_key=True) 
     name = models.CharField(max_length=255, unique=True)
     # Add more fields as needed
 
@@ -29,10 +30,12 @@ class ResearchArea(models.Model):
         return self.name
     
 class Fields_Project(models.Model):
+    id = models.BigAutoField(primary_key=True) 
     field_name=models.TextField(max_length=60)
     
     
 class Project(models.Model):
+    id = models.BigAutoField(primary_key=True) 
     project_topic=models.CharField(max_length=300)
     project_start_date=models.DateField()
     project_field=models.ManyToManyField(Fields_Project)
@@ -42,12 +45,14 @@ class Project(models.Model):
 
     
 class Resume(models.Model):
+    id = models.BigAutoField(primary_key=True) 
     resume_file=models.FileField(upload_to='resume/')
     sender=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='sender')
     reciever=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='reciever')
     sent_On=models.DateTimeField(auto_now_add=True)
 
 class Messages(models.Model):
+    id = models.BigAutoField(primary_key=True) 
     content=models.TextField()
     sender=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     pid=models.ForeignKey(Project,on_delete=models.CASCADE)
