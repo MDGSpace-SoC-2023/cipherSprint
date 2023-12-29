@@ -28,9 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'channels',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'mainApp',
     'corsheaders',
 ]
@@ -56,6 +59,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'Innobackend.urls'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'http://localhost:9200',
+        'http_auth': ('username', 'password')
+    }
+}
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",

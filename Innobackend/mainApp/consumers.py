@@ -32,7 +32,7 @@ class Consumer(WebsocketConsumer):
         try:
             user=CustomUser.objects.get(username=sender)
             print(user)
-            newMessage = Message(sender=sender,content=message)
+            newMessage = Messages(sender=sender,content=message)
             newMessage.save()
         except :
             self.send({"message":"User not found"})
