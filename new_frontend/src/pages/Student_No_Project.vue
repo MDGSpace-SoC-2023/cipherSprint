@@ -6,23 +6,12 @@
       <input type="text" class="form-control" placeholder="🔎 Search" aria-label="Search" aria-describedby="search-button">
       <button class="btn btn-success text-black" type="button" id="search-button">Search</button>
     </div>
-
-    <div class="container shiftBottom col-9">
-    <ProjectCard
-      v-for="(componentName, index) in paginatedComponents"
-      :key="index"
-      :title="componentName"
-      link_name="home" class="mb-3"
-    />
-    <div class="modifyPaginate mt-3">
-    <paginate
-      :page-count="totalPages"
-      :click-handler="goToPage"
-      :prev-text="'Previous'"
-      :next-text="'Next'"
-      :container-class="'pagination'"
-    ></paginate></div>
-  </div>
+  
+    <!--List of all Projects -->
+    <h1 class="text-center">PROJECTS</h1>
+    <div v-for="project in getProjects" :key="project.pk">
+      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="home" />
+    </div>
 
     <!--Proposal Maker -->
     <div class="text-center">
@@ -43,37 +32,36 @@
 </template>
 
 <script>
-  import ProjectCard from '@/components/ProjectCard.vue';
-  import Paginate from "vuejs-paginate-next";
+  import { mapGetters } from 'vuex';
+
   export default{
-  name:'ProposalPage',
-  components:{
-    ProjectCard ,
-    paginate:Paginate,
-  },
-  data() {
-    return {
-      componentList:['Project 1','Project 2','Project 3','Project 4','Project 5','Project 6'],
-      itemsPerPage: 4, 
-      currentPage: 1,
-    };
-  },
   computed: {
-    totalPages() {
-      return Math.ceil(this.componentList.length / this.itemsPerPage);
-    },
-    paginatedComponents() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.componentList.slice(startIndex, endIndex);
-    },
+    ...mapGetters('e', ['getProjects']),
+    ...mapGetters('a', ['getUser']),
   },
-  methods: {
-    goToPage(pageNumber) {
-      this.currentPage = pageNumber;
-    },
+  created() {
+    const uid = this.getUser.id;
+    console.log(uid);
+    this.$store.dispatch('e/get_pro',{uid});
+
   },
+  components: {
+    ProjectCard,
+  },
+  watch: {
+  getProjects(newValue) {
+    console.log('Projects updated:', newValue);
+  },
+},
 }
+</script>
+
+
+
+<script>
+  import ProjectCard from '@/components/ProjectCard.vue';
+  import ProposalCard from '../components/ProposalCard.vue'
+  
 </script>
 
 <style scoped>

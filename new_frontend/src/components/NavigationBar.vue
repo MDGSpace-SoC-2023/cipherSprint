@@ -28,6 +28,11 @@
 
 <script>
 export default {
+    computed: {
+    userName() {
+      return this.$store.state.a.user_info.username;
+    },
+    },
     name:'NavigationBar'
 }
 </script>
