@@ -32,6 +32,4 @@ contract Treasury is Ownable{
         pId_to_payee_to_amount[projectId][payee]+=amount;
     }
 
-
-
 }

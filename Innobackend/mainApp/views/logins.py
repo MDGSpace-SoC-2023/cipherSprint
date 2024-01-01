@@ -5,33 +5,45 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth import authenticate, login
 from mainApp.models import CustomUser
 from mainApp.serializers import User_Serializer
+from rest_framework.parsers import JSONParser
 
-class LoginView(APIView):
-    permission_classes=[AllowAny]
+def auth(username,password):
+    try:
+      user=CustomUser.objects.get(username=username,password=password)
+      return user
     
+    except CustomUser.DoesNotExist:
+        return None
+
+# @csrf_exempt
+class LoginView(APIView):
+
     def post(self,request,*args,**kwargs):
-        email=request.data.get('email')
-        pwd=request.data.get('password')
+        print("HI")
+        # print(request.data['username'])
+        print(request.data)
+        try:
+           username=request.data['username']
+        except:
+            return Response({'error': 'Username MISSING'})
+        try:
+            pwd=request.data['password']
+        except:
+            return Response({'error': 'PASSWORD MISSING'})
+        print(type(username))
+        print(pwd)
 
-        if email is None:
-            return Response({'error': 'Incomplete credentials- EMAIL MISSING'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        if pwd is None:
-            return Response({'error': 'Invalid credentials-PASSWORD MISSING'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        user=authenticate(request,model=CustomUser,email=email,password=pwd)
-
-        if user:
-            login(request,user)
-            serialize=User_Serializer.StudentSerializer(user)
-            return Response({
-                'token':user.auth_token.key,
-                'user':serialize.data
-            },
-            status=status.HTTP_200_OK
-            )
+        user=auth(username,pwd)
+        print(user)
+        if user==None:
+            return Response({'error': 'NOT AN IITIAN'})
         else:
-            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            login(request,user,backend='django.contrib.auth.backends.ModelBackend')
+            print("LOGGED IN")
+            serialize=User_Serializer(user)
+            print(serialize.data)
+            print(request.session.session_key)
+            return Response({'user': serialize.data, 'session_id': request.session.session_key})
         
 
         

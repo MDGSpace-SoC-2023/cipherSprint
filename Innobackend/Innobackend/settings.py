@@ -28,9 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'channels',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'mainApp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,12 +53,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Innobackend.urls'
-AUTH_USER_MODEL='mainApp.CustomUser'
 
+CORS_ALLOW_ALL_ORIGINS = True
 
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'http://localhost:9200',
+        'http_auth': ('username', 'password')
+    }
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
+CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
@@ -71,6 +87,15 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'rest_framework.authentication.SessionAuthentication',
+]
+
+
+# AUTH_USER_MODEL = 'mainApp.CustomUser'
+
 
 WSGI_APPLICATION = 'Innobackend.wsgi.application'
 ASGI_APPLICATION = 'Innobackend.asgi.application'
@@ -150,3 +175,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ]
+}
