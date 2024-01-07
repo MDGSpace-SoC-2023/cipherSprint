@@ -8,13 +8,7 @@ contract Treasury is Ownable{
     mapping(uint256=>mapping(address=>uint256)) public pId_to_payee_to_amount;
     mapping(uint256 => mapping(address=>uint256)) private pId_to_whom_to_howmuch;
 
-    function createProject(uint256 projectId,address payee,uint256 funds) external onlyOwner virtual{
-        require(projectId > 0, "Invalid project ID");
-        require(payee != address(0), "Invalid payee address");
-        require(funds > 0, "Invalid funding amount");
-        pId_to_funding[projectId] +=funds;
-        pId_to_payee_to_amount[projectId][payee]+=funds;
-    }
+
 
     constructor() Ownable(msg.sender) {}
 
