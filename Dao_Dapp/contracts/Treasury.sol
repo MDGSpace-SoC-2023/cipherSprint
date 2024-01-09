@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Treasury is Ownable{
+contract Treasury{
     mapping(uint256=>uint256) public pId_to_funding;
     mapping(uint256=>mapping(address=>uint256)) public pId_to_payee_to_amount;
     mapping(uint256 => mapping(address=>uint256)) private pId_to_whom_to_howmuch;
 
 
 
-    constructor() Ownable(msg.sender) {}
+    
 
     function give_funds(uint256 projectId,address to_pay,uint256 amount) external payable virtual{
         require(amount>0,"Amount must be greater than zero");

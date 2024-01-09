@@ -1,7 +1,7 @@
 //  SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Vote{
+contract vote{
 
     mapping(uint256 => mapping(string => uint256)) public proposal_votes;
     mapping(uint256 => mapping(uint256 => mapping(string => bool))) public voted;
