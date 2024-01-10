@@ -1,19 +1,19 @@
 <template>
     <div class="container mt-4">
     <!-- Search Bar -->
-    <div class="input-group mb-3">
+    <div class="input-group mb-3"  v-if="$store.state.e.projects.length===0">
       <input type="text" class="form-control" placeholder="🔎 Search" aria-label="Search" aria-describedby="search-button">
       <button class="btn btn-outline-success text-black" type="button" id="search-button">Search</button>
     </div>
   
     <!--List of all Projects -->
-    <h1 class="text-center">PROJECTS</h1>
+    <h1 class="text-center" v-if="$store.state.e.projects.length!=0">PROJECTS</h1>
     <div v-for="project in getProjects" :key="project.pk">
-      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="ideas" :pid="project.pk" />
+      <ProjectCard :title="`🧾 | ${project.project_topic}`" link_name="ideas" :pid="project.pk"  class="my-4"/>
     </div>
 
     <!--Proposal Maker -->
-    <div class="text-center">
+    <div class="text-center" v-if="$store.state.e.projects.length===0">
       <router-link :to="{name:'proposalMaker'}" class="btn btn-outline-success text-black mt-3">Design your Proposal</router-link>
     </div>
     </div>
@@ -22,7 +22,8 @@
 
 <script>
   import { mapGetters } from 'vuex';
-
+  import ProjectCard from '@/components/ProjectCard.vue';
+  // import ProposalCard from '../components/ProposalCard.vue'
   export default{
   computed: {
     ...mapGetters('e', ['getProjects']),
@@ -42,10 +43,6 @@
   },
 },
 }
-</script>
-
-<script setup>
-  import ProjectCard from '@/components/ProjectCard.vue';
 </script>
 
 <style scoped>

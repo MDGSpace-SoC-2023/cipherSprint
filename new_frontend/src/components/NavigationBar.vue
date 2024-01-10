@@ -1,10 +1,12 @@
 <script setup>
     import { RouterLink,RouterView } from 'vue-router';
+    import { check_login } from '@/Is_authenticated';
+    const isAuthenticated = check_login();
 </script>
 
 <template>
-    <header class="p-3 navColor">
-    <div class="container">
+    <header class="p-3 navColor" v-if="isAuthenticated">
+    <div class="container" >
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <RouterLink to="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img class="img-fluid" src="../assets/LogoFinal.jpg" alt="logo" style="width:4vw;height:6vh;">
@@ -18,7 +20,7 @@
         </ul>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2"><RouterLink to="/login" class="nav-link px-2">Login</RouterLink></button>
+          <button type="button" class="btn btn-outline-light me-2"><RouterLink to="/login" class="nav-link px-2">LogOut</RouterLink></button>
         </div>
       </div>
     </div>

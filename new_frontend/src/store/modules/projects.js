@@ -39,7 +39,7 @@ const projects_module={
                 const response=await backend_client.get(`project/${payload.pid}/`);
                 commit("setCurPro",response.data);
                 console.log("CURRENT PROJECT");
-                console.log([...state.cur_Selected]);
+                console.log([state.cur_Selected]);
             }
             catch(error){
               console.log(error)
