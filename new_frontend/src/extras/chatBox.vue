@@ -1,7 +1,7 @@
 <template>
     <form class='chat-box' @submit.prevent="onSubmit">
       <input
-          v-model="$store.state.d.message.content"
+          v-model="$store.state.d.comment"
           placeholder='Enter a message'
           type='text'
           class="form-control"
@@ -23,7 +23,7 @@ export default {
   method:{
     onSubmit() {
       this.onSubmit();
-      this.$store.state.d.message.content='';
+      // this.$store.state.d.message.content='';
   }
 },
  

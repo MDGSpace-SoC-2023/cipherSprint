@@ -12,8 +12,9 @@ class Message_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model=Messages
-        fields=['content','sender','pid','str_timestamp']
+        fields=['content','sender','pid','str_timestamp','timestamp']
 
     def get_str_timestamp(self, obj):
-        return obj.timestamp.strftime('%b %d , %I:%M %p')    
+        # print(obj.timestamp)
+        return obj.timestamp.strftime('%b %d , %I:%M %p') 
 

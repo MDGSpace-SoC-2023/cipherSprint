@@ -67,6 +67,7 @@ ELASTICSEARCH_DSL={
     }
 }
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]

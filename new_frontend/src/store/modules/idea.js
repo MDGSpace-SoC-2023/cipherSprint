@@ -4,7 +4,7 @@ const idea_module={
         project:"",
         problem:"",
         idea:"",
-        message:""
+        amount:""
       },
     mutations : {
         submitInfo(state){
