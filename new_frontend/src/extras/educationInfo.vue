@@ -29,7 +29,7 @@ export default{
 </script>
 
 <style scoped>
-.card{
+.card-body{
   background-color: rgb(23, 66, 97);
   color:white;
 }

@@ -6,11 +6,11 @@
             <VoteCard title="🧾 | Idea 1" action="VOTE" linkName="ideas"/>
             <VoteCard title="🧾 | Idea 2" action="VOTE" linkName="ideas"/>
             <VoteCard title="🧾 | Idea 3" action="VOTE" linkName="ideas"/>
-            <div class="d-flex justify-content-between p-2 bottomBox">
+            <div class="d-flex justify-content-between p-2 bottomBox " v-if="isMember">
                 <ProposalCard linkName="ideaProposal" heading="Idea Proposal" desc="Any unique idea for the project click the button below."/>
                 <chatBot />
             </div>
-            <button  v-if="$store.state.a.user_info.is_prof===true" class="btn btn-dark"><RouterLink to="/resumelist" class="text-decoration-none text-white">View Resume Submitted</RouterLink></button>
+            <button  v-if="$store.state.a.user_info.is_prof===true && isMember" class="btn btn-dark"><RouterLink to="/resumelist" class="text-decoration-none text-white">View Resume Submitted</RouterLink></button>
         </div>
     </div>
     </RouterView>
@@ -23,6 +23,21 @@ export default {
   computed: {
     ...mapGetters('e', ['getCurProN']),
   },
+  created(){
+        const members = this.$store.state.e.cur_Selected.project_members;
+        console.log(members);
+        for(let i=0;i<members.length;i++)
+        {
+            if(members[i].username === this.$store.state.a.username)
+              this.isMember=true;
+        }
+        console.log(this.isMember);
+  },
+  data(){
+    return{
+       isMember:false,
+    };
+  }
 };
 </script>
 

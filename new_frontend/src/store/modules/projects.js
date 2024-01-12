@@ -4,6 +4,8 @@ const projects_module={
     state : {
         projects:[],
         cur_Selected:{},
+        query:'',
+        searchResults:[],
       },
     mutations : {
         setProjects(state, projects) {
@@ -12,6 +14,9 @@ const projects_module={
           setCurPro(state, project) {
             state.cur_Selected = project;
           },
+          setSearchResult(state,searchResults){
+            state.searchResults = searchResults;
+          }
       },
     actions : {
         async get_pro({state,commit},payload){
@@ -37,6 +42,7 @@ const projects_module={
                 console.log(`Entered setpro ${pid}`);
                 console.log([...state.projects]);
                 const response=await backend_client.get(`project/${payload.pid}/`);
+                console.log(response);
                 commit("setCurPro",response.data);
                 console.log("CURRENT PROJECT");
                 console.log([state.cur_Selected]);
@@ -45,12 +51,24 @@ const projects_module={
               console.log(error)
             }
           },
+          async getSearch({state,commit}) {
+            backend_client.get(`search/?q=${state.query}`)
+              .then(response => {
+                commit("setSearchResult",response.data.projects)
+                console.log(state.searchResults);
+                state.query='';
+              })
+              .catch(error => {
+                console.error('Search failed:', error);
+              });
+          },
 
     },
     getters:{
         getProjects:state => state.projects,
         getCurPro:state=>state.cur_Selected,
         getCurProN:state => state.cur_Selected.project_topic,
+        getSearch:state =>state.searchResults,
     }
       
 }

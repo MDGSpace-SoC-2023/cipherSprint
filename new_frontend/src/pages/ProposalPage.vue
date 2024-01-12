@@ -86,12 +86,12 @@ export default{
   },
 }
 </script>
-<style>
+<style scoped>
  .modifyPaginate{
     display: flex;
     justify-content: center;
  }
- .colorCode{
+ .card-body{
   background-color:rgb(23, 66, 97) ;
  }
  @media screen and (max-width: 570px) {

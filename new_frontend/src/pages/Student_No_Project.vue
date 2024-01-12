@@ -2,9 +2,15 @@
     <div class="container mt-4">
     <!-- Search Bar -->
     <div class="input-group mb-3"  v-if="$store.state.e.projects.length===0">
-      <input type="text" class="form-control" placeholder="🔎 Search" aria-label="Search" aria-describedby="search-button">
-      <button class="btn btn-outline-success text-black" type="button" id="search-button">Search</button>
+      <input type="text" class="form-control" placeholder="🔎 Search ...." aria-label="Search" aria-describedby="search-button" v-model="$store.state.e.query">
+      <button class="btn btn-outline-success text-black" type="button" id="search-button" @click="$store.dispatch('e/getSearch')">Search</button>
     </div>
+    <div v-if="$store.state.e.projects.length===0" >
+      <li v-for="result in $store.state.e.searchResults" :key="result.id" class="list-unstyled">
+        <ProjectCard :title = "`🧾 | ${result.project_topic}`" link_name="ideas" :pid="result.pk" class="my-4" />
+      </li>      
+    </div>
+
   
     <!--List of all Projects -->
     <h1 class="text-center" v-if="$store.state.e.projects.length!=0">PROJECTS</h1>
