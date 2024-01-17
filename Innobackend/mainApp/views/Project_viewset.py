@@ -37,8 +37,15 @@ class ProjectViewSet(viewsets.ModelViewSet):
         serialized_projects=self.get_serializer(queryset,many=True)
         print(serialized_projects)
         return Response({"projects":serialized_projects.data})
-    
 
+    @action(detail=True, methods=['post'])
+    def add_project_member(request, pid=None):
+        project = Project.objects.filter(pk=pid)
+        
+        # Add the currently logged-in user to the project members
+        project.project_members.add(request.sender)
+        
+        return JsonResponse({'message': 'Project member added successfully'})
 
     
     

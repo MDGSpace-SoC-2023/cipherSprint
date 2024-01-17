@@ -5,6 +5,7 @@ import info_module from "./modules/info.js";
 import idea_module from "./modules/idea.js";
 import messages_module from "./modules/messages.js";
 import projects_module from "./modules/projects.js";
+import resume_module from "./modules/resume.js";
 
 const store = createStore({
    modules:{
@@ -13,6 +14,7 @@ const store = createStore({
        c:idea_module,
        d:messages_module,
        e:projects_module,
+       f:resume_module,
     },
     plugins: [createPersistedState()],
 });

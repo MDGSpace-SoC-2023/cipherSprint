@@ -48,6 +48,7 @@ class Resume(models.Model):
     resume_file=models.FileField(upload_to='resume/')
     sender=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='sender')
     reciever=models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='reciever')
+    pid=models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
     sent_On=models.DateTimeField(auto_now_add=True)
 
 class Messages(models.Model):

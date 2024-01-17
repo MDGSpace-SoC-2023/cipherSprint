@@ -30,15 +30,17 @@
       :container-class="'pagination'"
     ></paginate></div>
   </div>
-  <div v-if="isVisible" class="container my-1 col-md-6">
+  <div v-if="isVisible" class="container my-1 col-md-6" >
+    <div ref="testHtml">
     <personalInfo />
     <workExperience />
     <areasOfExpertise />
     <educationInfo />
-    <div class=" text-center">
-      <button type="submit" class="btn btn-outline-dark btn-lg my-3  mx-auto "  @click="$store.commit('b/submitInfo')">Submit</button>
     </div>
-  </div>
+    <div class=" text-center">
+      <button type="submit" class="btn btn-outline-dark btn-lg my-3  mx-auto "  @click="generatePDF()">Submit</button>
+    </div>
+  </div>  
 </div>
 </template>
 
@@ -50,6 +52,7 @@ import workExperience from '../extras/workExperience.vue';
 import areasOfExpertise from '@/extras/areasOfExpertise.vue';
 import educationInfo from '../extras/educationInfo.vue'
 import Paginate from "vuejs-paginate-next";
+import html2pdf from 'html2pdf.js';
 export default{
   name:'ProposalPage',
   components:{
@@ -65,7 +68,8 @@ export default{
       componentList: ['personalInfo', 'workExperience','areasOfExpertise','educationInfo'], // Add more component names as needed
       itemsPerPage: 1, // Assuming one component per page, adjust as needed
       currentPage: 1,
-      isVisible:false
+      isVisible:false,
+      generatedPdf:null,
     };
   },
   computed: {
@@ -82,6 +86,37 @@ export default{
     goToPage(pageNumber) {
       this.currentPage = pageNumber;
       this.isVisible=false;
+    },
+    async generatePDF(){
+      
+      var element= this.$refs.testHtml;
+      // var file=html2pdf(element).from(element).set(opt).save();
+
+      const dataUrl = await html2pdf().from(element).output('datauristring');
+
+      // Convert data URL to Blob
+      const pdfBlob = this.dataURLtoBlob(dataUrl);
+
+      
+      this.$store.dispatch('f/getResume');
+      console.log(this.$store.state.f.resume.length)
+      this.$store.dispatch('b/postResume',pdfBlob);      
+    },
+    dataURLtoBlob(dataUrl) {
+      // Convert data URL to Blob
+      // console.log(dataUrl);
+      const arr = dataUrl.split(',');
+      const mime = arr[0].match(/:(.*?);/)[1];
+      // console.log(mime);
+      const bstr = atob(arr[1]);
+      // console.log(bstr);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      console.log(u8arr);
+      return new Blob([u8arr], { type: mime });
     },
   },
 }

@@ -51,8 +51,21 @@ const projects_module={
               console.log(error)
             }
           },
+          async addProjectMember(pid){
+            console.log(pid);
+            const p_id=pid;
+            console.log(p_id);
+            try{
+              const response = await backend_client.get(`resume/accept/${p_id}`)
+              console.log(response.data);
+            }catch(error){
+              console.log(error);
+            }
+           
+          },
+
           async getSearch({state,commit}) {
-            backend_client.get(`search/?q=${state.query}`)
+            await backend_client.get(`search/?q=${state.query}`)
               .then(response => {
                 commit("setSearchResult",response.data.projects)
                 console.log(state.searchResults);
