@@ -17,7 +17,7 @@
     "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
     "ethereum-waffle": "^4.0.10",
-    "ethers": "^6.9.2",
+    "ethers": "^6.4.0",
     "hardhat": "^2.19.2",
     "hardhat-console": "^1.0.0",
     "hardhat-etherscan": "^1.0.1",
