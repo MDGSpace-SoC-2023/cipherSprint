@@ -27,15 +27,14 @@ contract proposal{
     //uint8 public currentValue;
     mapping(uint256=> ideas[] ) public Idea;
     mapping(uint256 => mapping(bytes32 => IDEA)) public Proposals;
-//     function demo(uint256 dummy) external {
-//     emit LogInformation("hii");
-//     currentValue = dummy + 1;
-//     //emit ValueUpdated(updatedValue); // Emit an event to signal the update
-// }
-// function getUpdatedValue() external view returns (uint8) {
-//         return currentValue;
-//     }
 
+    mapping(string => uint256) public timestart; 
+    function getideastat(string memory _idea) external view returns(bool){
+        if(block.timestamp>=(timestart[_idea]+ (1 * 1 minutes))){
+            return false;
+        }
+        return true;
+    }
     function add_proposal(uint256 project_id,string memory _project_name,string memory _idea,string memory _problem_faced,uint256 _amount,address proponent_ad) public{
         bytes32 idea_id=keccak256(bytes(_idea));
         emit LogInformation("Hello");
@@ -44,6 +43,7 @@ contract proposal{
             "Hello"
         );
         Idea[project_id].push(ideas(_idea,idea_id));
+        timestart[_idea]=block.timestamp;
         emit LogInformation("Hello");
         emit addedproposal(Proposals[project_id][idea_id]);
     }
@@ -61,7 +61,7 @@ contract proposal{
         // emit LogInformation("Hello from someFunction!");
         return projectProposals;
     }
-    function getIdea(uint8 project_id) external view returns (ideas[] memory){
+    function getIdea(uint256 project_id) external view returns (ideas[] memory){
         return Idea[project_id];
 
     }

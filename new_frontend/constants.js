@@ -1,7 +1,60 @@
 export const proposalContractAddress =
-  "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf";
-export const voteContractAddress = "0xBbF5A08dF0C8f2be530D3906a959f3F499c964Df";
+  "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+export const voteContractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 export const vote_abi = [
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_project_id",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getnumvotes",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_project_id",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_user_id",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getvoted",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
   {
     inputs: [
       {
@@ -247,9 +300,9 @@ export const proposal_abi = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "project_id",
-        type: "uint8",
+        type: "uint256",
       },
     ],
     name: "getIdea",
@@ -319,6 +372,25 @@ export const proposal_abi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getideastat",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "project_id",
         type: "uint256",
@@ -332,6 +404,25 @@ export const proposal_abi = [
     name: "remove_proposal",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    name: "timestart",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ];

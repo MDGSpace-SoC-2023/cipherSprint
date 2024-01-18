@@ -4,10 +4,12 @@
       <h1 class="text-center mt-3">{{ getCurProN }}</h1>
       <div
         class="d-flex flex-column p-4 gap-4 py-md-5 align-items-center justify-content-center"
+
       >
-        <VoteCard title="🧾 | Idea 1" action="VOTE" linkName="ideas" />
-        <VoteCard title="🧾 | Idea 2" action="VOTE" linkName="ideas" />
-        <VoteCard title="🧾 | Idea 3" action="VOTE" linkName="ideas" />
+        <div v-for="(subArray,index) in ideaList"
+        :key="index" class="container">
+            <VoteCard :title="subArray[0]" action="VOTE" linkName="ideas"  @click="handleClick(subArray)" />
+        </div>
         <div
           class="d-flex justify-content-between p-2 bottomBox"
           v-if="isMember"
@@ -39,6 +41,9 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters("e", ["getCurProN"]),
+    ideaList(){
+      return this.$store.state.c.idea_detail
+    }
   },
   created() {
     const members = this.$store.state.e.cur_Selected.project_members;
@@ -56,6 +61,13 @@ export default {
       isMember: false,
     };
   },
+  methods:{
+    handleClick(idea){
+      console.log(idea);
+      this.$store.commit('c/curSelected',idea);
+      this.$store.dispatch('c/Vote_on_Idea');
+    }
+  }
 };
 </script>
 
