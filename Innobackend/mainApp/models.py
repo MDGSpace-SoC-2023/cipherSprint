@@ -40,7 +40,7 @@ class Project(models.Model):
     project_field=models.ManyToManyField(Fields_Project)
     # project_head=models.ForeignKey(,on_delete=models.CASCADE)
     project_members=models.ManyToManyField(CustomUser)
-
+    project_amount = models.IntegerField(default=0)
 
     
 class Resume(models.Model):

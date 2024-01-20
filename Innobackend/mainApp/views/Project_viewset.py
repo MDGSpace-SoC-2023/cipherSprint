@@ -4,6 +4,7 @@ from mainApp.serializers import Project_Serializer
 from rest_framework.decorators import action
 from django_elasticsearch_dsl.search import Search
 from rest_framework.response import Response
+from rest_framework import status
 from mainApp.documents import ProjectDocument
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -37,6 +38,19 @@ class ProjectViewSet(viewsets.ModelViewSet):
         serialized_projects=self.get_serializer(queryset,many=True)
         print(serialized_projects)
         return Response({"projects":serialized_projects.data})
+    
+    @action(detail=True,methods=['patch'])
+    def update_amount(self, request, pid=None):
+        project = Project.objects.get(pk=pid)
+        print(project)
+        print(project.project_amount)
+        print(request.data['amount'])
+        request.data['project_amount'] = request.data['amount']
+        serializer = self.get_serializer(project, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 

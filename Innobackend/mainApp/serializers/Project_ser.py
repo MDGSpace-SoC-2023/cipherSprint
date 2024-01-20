@@ -8,7 +8,7 @@ class Project_Serializer(serializers.ModelSerializer):
     project_members = User_Serializer_for_messages(many=True)
     class Meta:
         model=Project
-        fields=['project_topic','project_field','pk','project_members']
+        fields=['project_topic','project_field','pk','project_members','project_amount']
 
 class Project_serializer_for_messages(serializers.ModelSerializer):
     class Meta:

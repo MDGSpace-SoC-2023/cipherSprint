@@ -52,6 +52,9 @@ contract proposal{
         delete Proposals[project_id][_ideaid];
         
     }
+    function getideadetail(uint256 project_id,bytes32 idea_id) external view returns(IDEA memory){
+        return Proposals[project_id][idea_id];  
+    }
     function getProjectProposal(uint256 project_id) external view returns (IDEAS[] memory){
         IDEAS[] memory projectProposals=new IDEAS[](Idea[project_id].length);
         for(uint256 i=0;i<Idea[project_id].length;i++){

@@ -1,12 +1,15 @@
 import { ethers } from "ethers";
 // const { stringify } = require("json-bigint");
 // import BigInt from 'big-integer';
+import backend_client from "../../../BackendClient";
 
 import {
   proposal_abi,
   proposalContractAddress,
   voteContractAddress,
   vote_abi,
+  treasuryContractAddress,
+  treasury_abi,
 } from "../../../constants.js";
 const idea_module = {
   namespaced: true,
@@ -39,66 +42,73 @@ const idea_module = {
   },
   actions: {
     async Submit_Idea({ state, rootState }) {
-      console.log("Hi");
-      if (window.ethereum) {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545/");
-        const signer = await provider.getSigner();
-        const contract = new ethers.Contract(
-          proposalContractAddress,
-          proposal_abi,
-          signer
-        );
-        // const contract2 = new ethers.Contract(
-        //   proposalContractAddress,
-        //   proposal_abi,
-        //   provider
-        // );
-        contract.on("*", (event) => {
-          //console.log(message);
-          console.log(event.log);
-        });
-        try {
-          console.log(rootState.e.cur_Selected.pk);
-          console.log(state.project);
-          console.log(state.idea);
-          console.log(state.problem);
-          console.log(state.amount);
-          console.log(accounts[0]);
-          console.log(contract.add_proposal);
-          const proposalTransaction = await contract.add_proposal(
-            rootState.e.cur_Selected.pk,
-            state.project,
-            state.idea,
-            state.problem,
-            state.amount,
-            accounts[0],
-            {
-              gasLimit: 8000000,
-              gasPrice: ethers.parseUnits("30", "gwei"),
+      console.log(state.amount);
+      console.log(rootState.e.cur_Selected);
+      if (state.amount >= rootState.e.cur_Selected.project_amount) {
+        console.log("can not give this amount");
+      } else {
+        console.log("Hi");
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545/");
+          const signer = await provider.getSigner();
+          const contract = new ethers.Contract(
+            proposalContractAddress,
+            proposal_abi,
+            signer
+          );
+          // const contract2 = new ethers.Contract(
+          //   proposalContractAddress,
+          //   proposal_abi,
+          //   provider
+          // );
+          contract.on("*", (event) => {
+            //console.log(message);
+            console.log(event.log);
+          });
+          try {
+            console.log(rootState.e.cur_Selected.pk);
+            console.log(state.project);
+            console.log(state.idea);
+            console.log(state.problem);
+            console.log(state.amount);
+            console.log(accounts[0]);
+            console.log(contract.add_proposal);
+            const proposalTransaction = await contract.add_proposal(
+              rootState.e.cur_Selected.pk,
+              state.project,
+              state.idea,
+              state.problem,
+              state.amount,
+              accounts[0],
+              {
+                gasLimit: 8000000,
+                gasPrice: ethers.parseUnits("30", "gwei"),
+              }
+            );
+            await proposalTransaction.wait();
+            console.log(proposalTransaction);
+            console.log("Transaction mined");
+            console.log(rootState.e.cur_Selected.pk);
+            const projectProposals =
+              await contract.getProjectProposal.staticCall(
+                rootState.e.cur_Selected.pk
+              );
+            // await projectProposals.wait();
+            if (projectProposals.length > 0) {
+              console.log(projectProposals);
+              console.log("Horjgnjerg");
+            } else {
+              console.log("No proposals found for the specified project.");
             }
-          );
-          await proposalTransaction.wait();
-          console.log(proposalTransaction);
-          console.log("Transaction mined");
-          console.log(rootState.e.cur_Selected.pk);
-          const projectProposals = await contract.getProjectProposal.staticCall(
-            1
-          );
-          // await projectProposals.wait();
-          if (projectProposals.length > 0) {
-            console.log(projectProposals);
-            console.log("Horjgnjerg");
-          } else {
-            console.log("No proposals found for the specified project.");
+          } catch (error) {
+            console.log(error);
           }
-        } catch (error) {
-          console.log(error);
         }
+        //this.$router.replace('/project');
       }
-      //this.$router.replace('/project');
     },
     async Vote_on_Idea({ state, rootState }) {
       console.log("starting voting");
@@ -117,6 +127,11 @@ const idea_module = {
         const contract1 = new ethers.Contract(
           proposalContractAddress,
           proposal_abi,
+          signer
+        );
+        const contract2 = new ethers.Contract(
+          treasuryContractAddress,
+          treasury_abi,
           signer
         );
         const check1 = await contract.getvoted.staticCall(
@@ -163,6 +178,34 @@ const idea_module = {
               ideaidis = gotidea[i].ideaid;
               break;
             }
+          }
+          const ideadetail = await contract1.getideadetail(
+            rootState.e.cur_Selected.pk,
+            ideaidis
+          );
+          console.log(ideadetail);
+          const fundTx = await contract2.give_funds(
+            rootState.e.cur_Selected.pk,
+            ideadetail.proponentaddress,
+            ideadetail.amount,
+            {
+              gasLimit: 8000000,
+              gasPrice: ethers.parseUnits("30", "gwei"),
+            }
+          );
+          await fundTx.wait();
+          console.log("done funding");
+          const amt =
+            rootState.e.cur_Selected.project_amount - Number(ideadetail.amount);
+          console.log(amt);
+          try {
+            const response = await backend_client.patch(
+              `/project/${rootState.e.cur_Selected.pk}/update/`,
+              { amount: amt }
+            );
+            console.log(response.data);
+          } catch (error) {
+            console.log(error);
           }
           const removeproposal = await contract1.remove_proposal(
             rootState.e.cur_Selected.pk,
