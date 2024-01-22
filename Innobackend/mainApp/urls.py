@@ -19,6 +19,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('search/', ProjectViewSet.as_view({"get":"search_projects"}, name='search')),
     path("project/project_user/<int:uid>",ProjectViewSet.as_view({"get":"project_user"},name="project_user")),
+    path('message/project/<int:project_id>/',MessageViewSet.as_view({"get":"project_messages"},name='message_1')), 
+    path("project/<int:pid>/update/",ProjectViewSet.as_view({"patch":"update_amount"},name="project_amount")), 
+   
     path('message/project/<int:project_id>/',MessageViewSet.as_view({"get":"project_messages"},name='message_1')),
     path('resume/<int:pk>/post/', ResumeViewSet.as_view({'post': 'postResume'}), name='post-resume'),
     path('resume/<int:pk>/delete/', ResumeViewSet.as_view({'delete': 'delete_resume'}), name='delete-resume'),

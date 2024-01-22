@@ -11,5 +11,10 @@ contract vote{
         voted[_user_id][_project_id][_idea]=true;
         proposal_votes[_project_id][_idea]++;
     }
-
+    function getvoted(uint256 _project_id,uint256 _user_id,string memory _idea) external view returns(bool){
+        return voted[_user_id][_project_id][_idea];
+    }
+    function getnumvotes(uint256 _project_id,string memory _idea) external view returns(uint256){
+        return proposal_votes[_project_id][_idea];
+    } 
 }

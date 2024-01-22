@@ -1,7 +1,153 @@
 export const proposalContractAddress =
-  "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf";
-export const voteContractAddress = "0xBbF5A08dF0C8f2be530D3906a959f3F499c964Df";
+  "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823";
+export const voteContractAddress = "0x4C4a2f8c81640e47606d3fd77B353E87Ba015584";
+export const treasuryContractAddress =
+  "0x2E2Ed0Cfd3AD2f1d34481277b3204d807Ca2F8c2";
+export const treasury_abi = [
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "projectId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "payee",
+        type: "address",
+      },
+    ],
+    name: "contribute_to_project",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "projectId",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "to_pay",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "give_funds",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "pId_to_funding",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "pId_to_payee_to_amount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];
 export const vote_abi = [
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_project_id",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getnumvotes",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_project_id",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_user_id",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getvoted",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
   {
     inputs: [
       {
@@ -247,9 +393,9 @@ export const proposal_abi = [
   {
     inputs: [
       {
-        internalType: "uint8",
+        internalType: "uint256",
         name: "project_id",
-        type: "uint8",
+        type: "uint256",
       },
     ],
     name: "getIdea",
@@ -325,6 +471,76 @@ export const proposal_abi = [
       },
       {
         internalType: "bytes32",
+        name: "idea_id",
+        type: "bytes32",
+      },
+    ],
+    name: "getideadetail",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "idea",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "problem_faced",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "project_name",
+            type: "string",
+          },
+          {
+            internalType: "address",
+            name: "proponentaddress",
+            type: "address",
+          },
+        ],
+        internalType: "struct proposal.IDEA",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_idea",
+        type: "string",
+      },
+    ],
+    name: "getideastat",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "project_id",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32",
         name: "_ideaid",
         type: "bytes32",
       },
@@ -332,6 +548,25 @@ export const proposal_abi = [
     name: "remove_proposal",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    name: "timestart",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ];
