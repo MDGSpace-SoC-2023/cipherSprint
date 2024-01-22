@@ -9,7 +9,7 @@
     <header class="p-3 navColor" v-if="isAuthenticated">
     <div class="container" >
       <div class="d-flex flex-wrap align-items-center justify-content-between ">
-        <RouterLink to="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <RouterLink to="/home" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <img class="img-fluid" src="../assets/LogoFinal.jpg" alt="logo" style="width:4vw;height:6vh;">
         </RouterLink>
 

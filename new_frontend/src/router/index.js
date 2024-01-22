@@ -13,7 +13,7 @@ const router = createRouter({
     routes: [
         { path: '/resumelist', component: ResumePage,name:"resume",meta: { requiresAuth:true }, },
         { path: '/', component: LoginPage,meta: { requiresAuth: false }, },
-        { path: '/noproject',name:"noProject", component: Student_No_Project,meta: { requiresAuth: true }, },
+        { path: '/home',name:"home", component: Student_No_Project,meta: { requiresAuth: true }, },
         { path: '/proposalmaker',name:'proposalMaker', component: ProposalPage , props:true,meta: { requiresAuth: true },},
         { path: '/project',name:"ideas", component: Student_with_Project, props:true,meta: { requiresAuth: true },},
         { path: '/proposal',name:'ideaProposal', component: IdeaProposal , props:true,meta: { requiresAuth: true },},

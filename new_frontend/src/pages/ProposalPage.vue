@@ -100,7 +100,8 @@ export default{
       
       this.$store.dispatch('f/getResume');
       console.log(this.$store.state.f.resume.length)
-      this.$store.dispatch('b/postResume',pdfBlob);      
+      this.$store.dispatch('b/postResume',pdfBlob); 
+      this.$router.replace('/home');     
     },
     dataURLtoBlob(dataUrl) {
       // Convert data URL to Blob

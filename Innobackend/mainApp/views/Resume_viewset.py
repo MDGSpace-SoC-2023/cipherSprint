@@ -43,4 +43,16 @@ class ResumeViewSet(viewsets.ModelViewSet):
         resume=Resume.objects.filter(Q(pid=pid) & Q(reciever=uid))
         serialized_resume=self.get_serializer(resume,many=True)
         return Response({"resume":serialized_resume.data})
-       
+
+
+    @action(detail=True, methods=['delete'])
+    def delete_resume(self, request, pk=None):
+        try:
+            resume = Resume.objects.get(pk=pk)
+            resume.delete()
+            return Response({'message': 'Resume deleted successfully'})
+
+        except Resume.DoesNotExist:
+            return Response({'error': 'Resume not found'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)  

@@ -57,7 +57,7 @@ const login_module={
                 console.log(state.user_info.username);
                 localStorage.setItem('sessionId',response.data.session_id)
                 console.log(localStorage.sessionId)
-                router.push({ name: "noProject" });
+                router.push({ name: "home" });
               }
           })
           }

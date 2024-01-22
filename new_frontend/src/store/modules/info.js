@@ -41,7 +41,7 @@ const info_module={
         formData.append('sender', rootState.a.user_info.id);
         formData.append('username',state.prof);
         formData.append('project',state.project_name);
-        formData.append('resume_file', pdfPromise, `${rootState.a.username}_${state.project_name}.pdf`);
+        formData.append('resume_file', pdfPromise, `${state.name} | ${state.project_name}.pdf`);
         try{
           // console.log(state.resume_file);
           console.log(state.prof);

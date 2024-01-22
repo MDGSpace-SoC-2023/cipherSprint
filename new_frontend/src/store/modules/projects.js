@@ -6,6 +6,8 @@ const projects_module={
         cur_Selected:{},
         query:'',
         searchResults:[],
+        message:"",
+        disable:false,
       },
     mutations : {
         setProjects(state, projects) {
@@ -51,13 +53,17 @@ const projects_module={
               console.log(error)
             }
           },
-          async addProjectMember(pid){
+          async addProjectMember({state,rootState}){
+            console.log(rootState.f.selected_resume);
+            const pid=rootState.f.selected_resume.pid;
+            const pk = rootState.f.selected_resume.id;
             console.log(pid);
-            const p_id=pid;
-            console.log(p_id);
             try{
-              const response = await backend_client.get(`resume/accept/${p_id}`)
-              console.log(response.data);
+              const response = await backend_client.post(`resume/accept/${pid}/${pk}/`,{'sender':rootState.f.selected_resume.sender})
+              console.log(response.data['message']);
+              state.message=response.data['message'];
+              state.disable=true;
+              rootState.f.selected_resume=[];
             }catch(error){
               console.log(error);
             }

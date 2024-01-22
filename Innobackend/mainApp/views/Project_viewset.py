@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from mainApp.models import Project,CustomUser
+from mainApp.models import Project,CustomUser,Resume
 from mainApp.serializers import Project_Serializer
 from rest_framework.decorators import action
 from django_elasticsearch_dsl.search import Search
@@ -39,13 +39,18 @@ class ProjectViewSet(viewsets.ModelViewSet):
         return Response({"projects":serialized_projects.data})
 
     @action(detail=True, methods=['post'])
-    def add_project_member(request, pid=None):
-        project = Project.objects.filter(pk=pid)
-        
+    def add_project_member(self,request,pid=None,pk=None):
+        project = Project.objects.get(pk=pid)
+        print(project)
+        print(request.data['sender'])
+        current_user=CustomUser.objects.get(id=request.data['sender'])
+        print(current_user)
         # Add the currently logged-in user to the project members
-        project.project_members.add(request.sender)
-        
-        return JsonResponse({'message': 'Project member added successfully'})
+        project.project_members.add(current_user)
+        print(project.project_members)
+        resume = Resume.objects.get(pk=pk)
+        resume.delete()
+        return Response({'message': 'Project member added successfully and Resume Deleted'})
 
     
     

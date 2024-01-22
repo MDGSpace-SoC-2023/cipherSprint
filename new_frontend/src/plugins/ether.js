@@ -1,11 +1,11 @@
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 
-const EthersPlugin = {
-  install: function (app) {
-    app.config.globalProperties.ethers = ethers;
+// const EthersPlugin = {
+//   install: function (app) {
+//     app.config.globalProperties.ethers = ethers;
 
-    app.provide("$ethers", ethers);
-  },
-};
+//     app.provide("$ethers", ethers);
+//   },
+// };
 
-export default EthersPlugin;
+// export default EthersPlugin;

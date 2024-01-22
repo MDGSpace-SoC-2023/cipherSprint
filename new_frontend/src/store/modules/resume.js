@@ -4,6 +4,7 @@ const resume_module={
     state : {
         resume:[],
         reqd_resume:[],
+        selected_resume:[],
       },
     mutations : {
         setResume(state,resume){
@@ -11,6 +12,9 @@ const resume_module={
         },
         setReqdResume(state,resumeList){
           state.reqd_resume=resumeList;
+        },
+        setSelected(state,resume){
+          state.selected_resume=resume;
         }
       },
     actions : {
@@ -41,6 +45,20 @@ const resume_module={
 
           }catch(error){
             console.log(error);
+          }
+        },
+        async removeResume({state,rootState}){
+          console.log(state.selected_resume);
+          const pk = state.selected_resume.id;
+          console.log(pk);
+          try{
+            const response = await backend_client.delete(`resume/${pk}/delete/`)
+            console.log(response.data);
+            rootState.e.message=response.data['message'];
+            rootState.e.disable=true;
+            state.selected_resume=[];
+          }catch(error){
+            console.log(error)
           }
         }
 
