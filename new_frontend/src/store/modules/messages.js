@@ -1,14 +1,11 @@
-// import chat from "@/services/chat"
-import axios from 'axios'
+import backend_client from "../../../BackendClient";
 const messages_module={
     namespaced:true,
     state:{
         ws:null,
         pid:"",
-        message:{
-          content:"",
-          sender:"",
-        },
+        comment:"",
+        sender:"",
         messages: [],
         members:[],
     },
@@ -19,8 +16,8 @@ const messages_module={
       setMessages(state, messages) {
         state.messages = messages;
       },
-      setContent(state,content) {
-        state.message.content=content;
+      setContent(state,comment) {
+        state.comment=comment;
       },
       addMessage(state, message) {
         state.messages.push(message);
@@ -30,45 +27,71 @@ const messages_module={
       },
       setMember(state,members){
         state.members=members;
-      }
+      },
+      setSender(state,sender){
+        state.sender = sender;
+      },
 
     },
     actions:{
-      initWs({ commit, dispatch }, roomLabel) {
-        dispatch('setPID',roomLabel);
-        dispatch('loadMessages', roomLabel);
+      initWs({ commit,dispatch }, payload) {
+        dispatch('setPID',payload);
+        dispatch('setMember',payload);
+        dispatch('setSender');
+        dispatch('loadMessages', payload);
         const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-        const ws = new WebSocket(`${wsScheme}://${window.location.hostname}:8000/ws/project/'${roomLabel}/comments/`);
+        const ws = new WebSocket(`${wsScheme}://localhost:8000/ws/project/${payload.pid}/comments/`);
         ws.onmessage = (event) => {
+          console.log('Yayy');
+          console.log(event.data);
+          console.log(JSON.parse(event.data));
           dispatch('rcvMsg', JSON.parse(event.data));
         };
         commit('setWs', ws);
       },
-      loadMessages({ commit }, roomLabel) {
-        axios.get(`http://localhost:8000/inno_api/message/project/${roomLabel}`)
-          .then((response) => {
-            commit('setMessages', response.data);
-          })
-          .catch((error) => {
-            console.error('Error loading messages:', error);
-          });
+      async loadMessages({state, commit }, payload) {
+        try{
+          const response=await backend_client.get(`message/project/${payload.pid}/`);
+            if(response.data.error!=undefined){
+              console.log(response.data.error)
+            }
+            else{
+              console.log(response.data);
+              commit('setMessages', response.data);
+              console.log(state.messages);
+            }
+        }
+        catch(error){
+          console.log(error)
+        }
       },
       rcvMsg({ commit }, message) {
+        console.log(message);
         commit('addMessage', message);
       },
 
       submitMessage({state,commit},newValue){
         commit("setContent",newValue)
-        this.ws.send(JSON.stringify({ 'message':state.message }));
-        state.message.content='';
+        console.log(newValue);
+        console.log(state.comment);
+        state.ws.send(JSON.stringify({'comment':state.comment,'sender':state.sender,'pid':state.pid }));
+        state.comment='';
       },
-      setPID({commit},roomLabel){
-        commit("setPID",roomLabel)
+      setPID({state,commit},payload){
+        commit("setPID",payload.pid);
+        console.log(state.pid);
       },
-      setMember({commit},roomLabel){
-        axios.get(`http://localhost:8000/inno_api/project/${roomLabel}`)
+      setSender({state,commit,rootState}){
+        console.log(rootState.a.username);
+       commit("setSender",rootState.a.username);
+       console.log(state.sender);
+      },
+      async setMember({state,commit},payload){
+        await backend_client.get(`project/${payload.pid}/`)
         .then((response) => {
-          commit('setMembers', response.data.project_members);
+          console.log(response.data);
+          commit('setMember', response.data.project_members);
+          console.log([...state.members]);
         })
         .catch((error) => {
           console.error('Error loading messages:', error);
@@ -77,5 +100,4 @@ const messages_module={
 
     }
 }
-
 export default messages_module

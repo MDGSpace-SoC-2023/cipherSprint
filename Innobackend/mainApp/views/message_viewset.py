@@ -11,5 +11,9 @@ class MessageViewSet(viewsets.ModelViewSet):
     @action(detail=True,methods=['get'])
     def project_messages(self,request,project_id=None,*args,**kwargs):
         messages=Messages.objects.filter(pid=project_id)
+        print(messages)
+        # print(pid)
+        print(project_id)
         serialized_messages=self.get_serializer(messages,many=True)
+        print(serialized_messages)
         return Response(serialized_messages.data)

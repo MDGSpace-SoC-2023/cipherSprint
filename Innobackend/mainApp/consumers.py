@@ -29,10 +29,11 @@ class Consumer(WebsocketConsumer):
         print(data)
         message=data['comment']
         sender=data['sender']
+        pid=data['pid']
         try:
             user=CustomUser.objects.get(username=sender)
             print(user)
-            newMessage = Messages(sender=sender,content=message)
+            newMessage = Messages(sender=user,content=message,pid_id=pid)
             newMessage.save()
         except :
             self.send({"message":"User not found"})
@@ -56,6 +57,6 @@ class Consumer(WebsocketConsumer):
       print(message)
       (self.send)(json.dumps({
             'type':'chat.message',
-            'message':message,
-            'sender':sender,
+            'content':message,
+            'sender':{'username' :sender},
      }))

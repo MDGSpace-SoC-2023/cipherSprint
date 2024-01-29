@@ -1,11 +1,13 @@
 <script setup>
   import NavigationBar from "./components/NavigationBar.vue"
   import footerBar from "./components/footerBar.vue";
+  // import { check_login } from '@/Is_authenticated';
+  // const isAuthenticated = check_login();
 </script>
 
 <template>
   <NavigationBar />
-  <footerBar />
+  <footerBar v-if="$store.state.a.isLoggedIn" />
 </template>
 
 

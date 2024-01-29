@@ -4,6 +4,10 @@ const projects_module={
     state : {
         projects:[],
         cur_Selected:{},
+        query:'',
+        searchResults:[],
+        message:"",
+        disable:false,
       },
     mutations : {
         setProjects(state, projects) {
@@ -12,6 +16,9 @@ const projects_module={
           setCurPro(state, project) {
             state.cur_Selected = project;
           },
+          setSearchResult(state,searchResults){
+            state.searchResults = searchResults;
+          }
       },
     actions : {
         async get_pro({state,commit},payload){
@@ -37,13 +44,42 @@ const projects_module={
                 console.log(`Entered setpro ${pid}`);
                 console.log([...state.projects]);
                 const response=await backend_client.get(`project/${payload.pid}/`);
+                console.log(response);
                 commit("setCurPro",response.data);
                 console.log("CURRENT PROJECT");
-                console.log([...state.cur_Selected]);
+                console.log([state.cur_Selected]);
             }
             catch(error){
               console.log(error)
             }
+          },
+          async addProjectMember({state,rootState}){
+            console.log(rootState.f.selected_resume);
+            const pid=rootState.f.selected_resume.pid;
+            const pk = rootState.f.selected_resume.id;
+            console.log(pid);
+            try{
+              const response = await backend_client.post(`resume/accept/${pid}/${pk}/`,{'sender':rootState.f.selected_resume.sender})
+              console.log(response.data['message']);
+              state.message=response.data['message'];
+              state.disable=true;
+              rootState.f.selected_resume=[];
+            }catch(error){
+              console.log(error);
+            }
+           
+          },
+
+          async getSearch({state,commit}) {
+            await backend_client.get(`search/?q=${state.query}`)
+              .then(response => {
+                commit("setSearchResult",response.data.projects)
+                console.log(state.searchResults);
+                state.query='';
+              })
+              .catch(error => {
+                console.error('Search failed:', error);
+              });
           },
 
     },
@@ -51,6 +87,7 @@ const projects_module={
         getProjects:state => state.projects,
         getCurPro:state=>state.cur_Selected,
         getCurProN:state => state.cur_Selected.project_topic,
+        getSearch:state =>state.searchResults,
     }
       
 }

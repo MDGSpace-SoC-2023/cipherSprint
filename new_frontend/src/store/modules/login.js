@@ -25,6 +25,11 @@ const login_module={
       },
       setUserInfo(state,user_info){
         state.user_info=user_info;
+      },
+      clearState(state){
+        Object.keys(state).forEach(key => {
+          state[key] = ''; // or set to the initial value if applicable
+        });
       }
       },
       
@@ -54,17 +59,31 @@ const login_module={
               }
               else{
                 commit("setUserInfo",response.data.user);
+                commit("setLoggedIn",true);
+                console.log(state)
                 console.log(state.user_info.username);
                 localStorage.setItem('sessionId',response.data.session_id)
                 console.log(localStorage.sessionId)
-                router.push({ name: "noProject" });
+                router.push({ name: "home" });
               }
           })
           }
           catch(error){
             console.log(error)
           }
-        }
+        },
+        async logout({commit}){
+          // const csrf = this.getCookie('csrftoken');
+          // console.log(csrf);
+          try{
+              localStorage.removeItem('sessionId');
+              commit("clearState")
+              router.push({ name: "login" });
+              console.log("efbnekjgnergkj");
+          }catch(error){
+              console.log(error);
+          }
+      }
       },
       getters: {
         errorMessage: (state) => state.error_message,
