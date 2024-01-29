@@ -9,11 +9,11 @@
         </div>
         <div v-for="(subArray,index) in passedIdeaList"
         :key="index" class="container d-flex justify-content-center align-item-center">
-            <VoteCard :title="subArray[0]" class="styleBox styleButton" action="Vote Passed"  />
+            <VoteCard :title="subArray[0]" class="styleBox styleButton" action="Proposal Passed"  />
         </div>
         <div v-for="(subArray,index) in rejectedIdeaList"
         :key="index" class="container d-flex justify-content-center align-item-center">
-            <VoteCard :title="subArray[0]" class="styleBox2 styleButton" action="Vote Rejected"  />
+            <VoteCard :title="subArray[0]" class="styleBox2 styleButton" action="Proposal Rejected"  />
         </div>
         <div
           class="d-flex justify-content-between p-2 bottomBox"
@@ -88,11 +88,14 @@ export default {
   methods:{
     async handleClick(idea){
       console.log(idea);
-      this.$store.commit('c/curSelected',idea);
-      await this.$store.dispatch('c/Vote_on_Idea');
       const payload = this.$store.state.e.cur_Selected;
+      this.$store.commit('c/curSelected',idea);
+      await this.$store.dispatch("c/getIdeas",payload);
+      if(!(this.$store.state.c.isRejected)){
+      await this.$store.dispatch('c/Vote_on_Idea');
+     
       this.$store.dispatch("c/getIdeas",payload);
-      
+      }
     },
     // getIdeas(){
     //   this.$store.dispatch("c/getIdeas");

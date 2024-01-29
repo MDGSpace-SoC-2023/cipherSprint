@@ -21,6 +21,7 @@ const idea_module = {
     error_message: "",
     passIdeas: [],
     rejectedIdeas: [],
+    isRejected:false,
   },
   mutations: {
     submitInfo(state) {
@@ -339,6 +340,7 @@ const idea_module = {
             console.log("22");
             console.log(checker);
             if (!checker) {
+              state.isRejected=true;
               // Use await to wait for the result of the asynchronous call
               const removeproposal = await contract.remove_proposal(
                 rootState.e.cur_Selected.pk,
