@@ -2,7 +2,7 @@
     <div class="card mt-3" v-if="title!==''"> 
         <div class="card-body d-flex justify-content-between voteBox" >
           <div class="p-2"><h5 >{{ title }}</h5></div> 
-          <div class="p-2"><router-link :to="{name:linkName}" class="nav-link text-black"><button class="btn btn-outline-success">{{ action }}</button></router-link></div> 
+          <div class="p-2" ><router-link :to="{name:linkName}" class="nav-link text-black" ><button class="btn btn-outline-success">{{ action }}</button></router-link></div> 
         </div>
     </div>
 </template>

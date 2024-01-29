@@ -27,7 +27,13 @@ const info_module={
         },
         setResume(state,resume_file){
           state.resume_file=resume_file;
-        }
+        },
+        resetState(state) {
+          // Iterate over state keys and reset each variable to its initial or empty value
+          Object.keys(state).forEach(key => {
+            state[key] = ''; // or set to the initial value if applicable
+          });
+        },
       },
     actions : {
       setResume({commit},pdf){
@@ -35,7 +41,7 @@ const info_module={
         // console.log('Hi');
         commit('setResume',pdf);
       },
-      async postResume({state,rootState},pdfPromise){
+      async postResume({state,rootState,commit},pdfPromise){
         const id = rootState.f.resume.length+1;
         const formData = new FormData();
         formData.append('sender', rootState.a.user_info.id);
@@ -54,7 +60,9 @@ const info_module={
         {
           console.log(error);
         }
+        commit("resetState");
       },
+      
     }
       
 }

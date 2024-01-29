@@ -15,10 +15,14 @@ export default {
     pid: Number,
   },
   methods: {
-    setPro() {
+    async setPro() {
       let pid=this.pid;
       console.log(`project${pid}`);
-      this.$store.dispatch('e/setPro',{pid} );
+      await this.$store.dispatch('e/setPro',{pid} );
+      console.log('See')
+      console.log(this.$store.state.e.cur_Selected);
+      const payload = this.$store.state.e.cur_Selected;
+      this.$store.dispatch("c/getIdeas",payload);
     },
   },
 }

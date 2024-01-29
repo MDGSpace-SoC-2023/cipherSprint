@@ -1,8 +1,8 @@
 export const proposalContractAddress =
-  "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823";
-export const voteContractAddress = "0x4C4a2f8c81640e47606d3fd77B353E87Ba015584";
+  "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3";
+export const voteContractAddress = "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1";
 export const treasuryContractAddress =
-  "0x2E2Ed0Cfd3AD2f1d34481277b3204d807Ca2F8c2";
+  "0x7969c5eD335650692Bc04293B07F5BF2e7A673C0";
 export const treasury_abi = [
   {
     inputs: [
@@ -539,10 +539,188 @@ export const proposal_abi = [
         name: "project_id",
         type: "uint256",
       },
+    ],
+    name: "getpassedProposal",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "idea1",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "problem_faced1",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "amount1",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "project_name1",
+            type: "string",
+          },
+        ],
+        internalType: "struct proposal.IDEAS[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "project_id",
+        type: "uint256",
+      },
+    ],
+    name: "getrejectedProposal",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "idea1",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "problem_faced1",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "amount1",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "project_name1",
+            type: "string",
+          },
+        ],
+        internalType: "struct proposal.IDEAS[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "lastUpdateTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "passedProposals",
+    outputs: [
+      {
+        internalType: "string",
+        name: "idea1",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "problem_faced1",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "amount1",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "project_name1",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "rejectedProposals",
+    outputs: [
+      {
+        internalType: "string",
+        name: "idea1",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "problem_faced1",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "amount1",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "project_name1",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "project_id",
+        type: "uint256",
+      },
       {
         internalType: "bytes32",
         name: "_ideaid",
         type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "casenumber",
+        type: "uint256",
       },
     ],
     name: "remove_proposal",
@@ -567,6 +745,19 @@ export const proposal_abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "adder",
+        type: "uint256",
+      },
+    ],
+    name: "updateState",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ];

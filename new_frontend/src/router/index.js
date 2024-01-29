@@ -12,7 +12,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/resumelist', component: ResumePage,name:"resume",meta: { requiresAuth:true }, },
-        { path: '/', component: LoginPage,meta: { requiresAuth: false }, },
+        { path: '/',name:"login", component: LoginPage,meta: { requiresAuth: false }, },
         { path: '/home',name:"home", component: Student_No_Project,meta: { requiresAuth: true }, },
         { path: '/proposalmaker',name:'proposalMaker', component: ProposalPage , props:true,meta: { requiresAuth: true },},
         { path: '/project',name:"ideas", component: Student_with_Project, props:true,meta: { requiresAuth: true },},
@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     const isAuthenticated = check_login();
 
     if (!isAuthenticated) {
-      next("/login");
+      next("/");
     } else {
       next();
     }

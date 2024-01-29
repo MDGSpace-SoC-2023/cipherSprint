@@ -10,7 +10,7 @@
     <h3 class="text-center mt-5 mb-5" v-if="resumeList.length==0">NO RESUME SUBMITTED</h3>
     <div class=" d-flex flex-column p-4 gap-2  align-items-center justify-content-center">
     
-    <div class="card mt-3" v-for="(componentName, index) in paginatedComponents"
+    <div class="card mt-3" v-for="(componentName, index) in paginatedComponents" 
       :key="index">
         <div class="card-body d-flex justify-content-between ">
           <div class="p-2"><h5 >{{getName(componentName.resume_file)}}</h5></div> 
@@ -61,9 +61,13 @@
       return Math.ceil(this.resumeList.length / this.itemsPerPage);
     },
     paginatedComponents() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.resumeList.slice(startIndex, endIndex);
+      if(this.resumeList.length!=0){
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        return this.resumeList.slice(startIndex, endIndex);
+      }
+      else 
+        return [];
     },
   },
   methods: {
@@ -81,10 +85,10 @@
       this.$store.commit('f/setSelected',componentName)
       this.$store.dispatch('e/addProjectMember') 
       this.isPopupVisible=true;
-      location.reload();
     },
     closePopup(){
       this.isPopupVisible=false;
+      location.reload();
     },
     deleteResume(componentName){
       console.log(componentName);
@@ -94,7 +98,7 @@
       this.isPopupVisible=true;
       console.log(this.$store.state.e.message);
       console.log(this.$store.state.e.disable);
-      location.reload();
+      //location.reload();
     }
   },
  }

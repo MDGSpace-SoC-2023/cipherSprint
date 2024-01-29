@@ -51,7 +51,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
         print(project.project_members)
         resume = Resume.objects.get(pk=pk)
         resume.delete()
-        return Response({'message': 'Project member added successfully and Resume Deleted'})    @action(detail=True,methods=['patch'])
+        return Response({'message': 'Project member added successfully and Resume Deleted'})    
+    
+    @action(detail=True,methods=['patch'])
     def update_amount(self, request, pid=None):
         project = Project.objects.get(pk=pid)
         print(project)

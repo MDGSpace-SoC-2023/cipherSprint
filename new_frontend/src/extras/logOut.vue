@@ -23,6 +23,11 @@
       closePopup() {
         this.$emit('close');
       },
+      logout(){
+        this.$store.dispatch('a/logout');
+        console.log('clicked');
+        this.$emit('close');
+      },
     },
   };
   </script>

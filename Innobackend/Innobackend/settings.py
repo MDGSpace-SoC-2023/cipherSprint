@@ -71,7 +71,19 @@ ELASTICSEARCH_DSL={
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    "http://127.0.0.1:8080",
+
 ]
+CORS_ALLOW_METHODS=[
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "PATCH",
+    "OPTIONS",
+]
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8080']
+
 CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
@@ -120,7 +132,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'SOC',
         'USER': 'root',
-        'PASSWORD': 'Bajpai@25',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
@@ -160,6 +172,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# CSRF_COOKIE_SECURE = True
 
 
 # Static files (CSS, JavaScript, Images)

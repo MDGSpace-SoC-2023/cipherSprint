@@ -1,12 +1,12 @@
 <script setup>
     import { RouterLink,RouterView } from 'vue-router';
     import logOut from "../extras/logOut.vue";
-    import { check_login } from '@/Is_authenticated';
-    const isAuthenticated = check_login();
+    //import { check_login } from '@/Is_authenticated';
+    // const isAuthenticated = check_login();
 </script>
 
 <template>
-    <header class="p-3 navColor" v-if="isAuthenticated">
+    <header class="p-3 navColor" v-if="$store.state.a.isLoggedIn">
     <div class="container" >
       <div class="d-flex flex-wrap align-items-center justify-content-between ">
         <RouterLink to="/home" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -31,9 +31,15 @@ export default {
       return this.$store.state.a.user_info.username;
     },
     },
+    // created(){
+    //   this.isAuthenticated = check_login() ;
+    //   console.log('Authenticated');
+    //   console.log(this.isAuthenticated);
+    // },
     data() {
     return {
       isPopupVisible: false,
+      isAuthenticated:false,
     };
     },
     methods: {
