@@ -5,7 +5,7 @@
 
 
       <div class="mb-5 mt-3 memberBox">
-        <button class="btn btn-outline-dark " type="button" @click="isVisible=!isVisible" >
+        <button class="btn btn-outline-dark " type="button" @click="handleclick" >
         Members 👤
         </button>
 
@@ -62,6 +62,12 @@
       console.log(pid);
       this.$store.dispatch('d/initWs', {pid});
   },
+  methods:{
+    handleclick(){
+      this.isVisible=true;
+      location.reload();
+    }
+  }
 }
 </script>
 

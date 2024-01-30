@@ -1,11 +1,11 @@
 <template>
     <div class="container mt-4">
     <!-- Search Bar -->
-    <div class="input-group mb-3"  v-if="this.$store.state.e.projects.length===0">
+    <div class="input-group mb-3"  >
       <input type="text" class="form-control" placeholder="🔎 Search ...." aria-label="Search" aria-describedby="search-button" v-model="$store.state.e.query">
       <button class="btn btn-outline-success text-black" type="button" id="search-button" @click="$store.dispatch('e/getSearch')">Search</button>
     </div>
-    <div v-if="$store.state.e.projects.length===0" >
+    <div  >
       <li v-for="result in this.$store.state.e.searchResults" :key="result.id" class="list-unstyled">
         <ProjectCard :title = "`🧾 | ${result.project_topic}`" link_name="ideas" :pid="result.pk" class="my-4" />
       </li>      
@@ -19,8 +19,8 @@
     </div>
 
     <!--Proposal Maker -->
-    <div class="text-center" >
-      <router-link :to="{name:'proposalMaker'}" class="btn btn-outline-success text-black mt-3">Design your Proposal</router-link>
+    <div class="text-center" v-if="$store.state.a.user_info.is_prof==false">
+      <router-link :to="{name:'proposalMaker'}" class="btn btn-outline-success text-black mt-3">Design your Resume</router-link>
     </div>
     </div>
 

@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer,WebsocketConsumer
 from mainApp.models import CustomUser,Messages
 from asgiref.sync import async_to_sync,sync_to_async
+from django.utils import timezone
 
 class Consumer(WebsocketConsumer):
 
@@ -34,6 +35,7 @@ class Consumer(WebsocketConsumer):
             user=CustomUser.objects.get(username=sender)
             print(user)
             newMessage = Messages(sender=user,content=message,pid_id=pid)
+            print(newMessage)
             newMessage.save()
         except :
             self.send({"message":"User not found"})

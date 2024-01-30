@@ -99,7 +99,11 @@ const idea_module = {
       } else if (state.problem.length === 0) {
         console.log("Null");
         state.error_message = "Required Problem input";
-      } else {
+      } 
+      else if (isNaN(state.amount)) {
+        state.error_message = 'Please enter a valid integer.';
+      }
+      else {
         console.log("Hi");
         if (window.ethereum) {
           const accounts = await window.ethereum.request({
@@ -338,6 +342,7 @@ const idea_module = {
             //await checker.wait();
             //console.log();
             console.log("22");
+            console.log(state.isRejected);
             console.log(checker);
             if (!checker) {
               state.isRejected=true;

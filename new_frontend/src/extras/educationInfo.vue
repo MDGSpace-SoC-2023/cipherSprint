@@ -10,7 +10,7 @@
         <Form_Input  Id="branch" title="Branch" v-model="$store.state.b.branch"  class="p-2" />
         <Form_Input  Id="degree" title="Degree" v-model="$store.state.b.degree"  class="p-2" />
         <Form_Input  Id="college" title="Name of College" v-model="$store.state.b.college"  class="p-2" />
-        <Form_Input  Id="message" title="Message" v-model="$store.state.b.message1"  class="p-2" />
+        <Form_Input  Id="github link" title="Github Id" v-model="$store.state.b.github"  class="p-2" />
       </form>
       <!-- End Form -->
 

@@ -32,7 +32,7 @@ contract proposal{
 
     mapping(string => uint256) public timestart; 
     function getideastat(string memory _idea) external view returns(bool){
-        if(block.timestamp>=(timestart[_idea]+ (5 * 1 minutes))){ 
+        if(block.timestamp>=(timestart[_idea]+ (3 * 1 minutes))){ 
             return false;
         }
         return true;

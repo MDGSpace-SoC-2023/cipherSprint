@@ -6,6 +6,7 @@ import Student_with_Project from "../pages/Student_with_project.vue";
 import IdeaProposal from "../pages/IdeaProposal.vue";
 import ResumePage from "../pages/ResumePage.vue";
 import ChatPage from "../pages/ChatPage.vue";
+import IdeaView from "../pages/IdeaView.vue"
 import { check_login } from "@/Is_authenticated";
 
 const router = createRouter({
@@ -17,6 +18,7 @@ const router = createRouter({
         { path: '/proposalmaker',name:'proposalMaker', component: ProposalPage , props:true,meta: { requiresAuth: true },},
         { path: '/project',name:"ideas", component: Student_with_Project, props:true,meta: { requiresAuth: true },},
         { path: '/proposal',name:'ideaProposal', component: IdeaProposal , props:true,meta: { requiresAuth: true },},
+        { path: '/idea',name:'ideaView', component: IdeaView , props:true,meta: { requiresAuth: true },},
         {path:'/message',component:ChatPage,meta: { requiresAuth: true },},
         {path:'/resumelist',component:ResumePage},
     ]

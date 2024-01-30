@@ -5,25 +5,25 @@
       <div class="d-flex flex-column p-4 gap-4 py-md-5 align-items-center justify-content-between" >
         <div v-for="(subArray,index) in ideaList"
         :key="index" class="container d-flex justify-content-center align-item-center" >
-            <VoteCard :title="subArray[0]" action="VOTE" linkName="ideas"  @click="handleClick(subArray)" />
+            <VoteCard :title="subArray[0]" action="VOTE"    :handleActionClick="() => handleClick(subArray)"  :handleViewClick="() => handleView(subArray)"  linkName="ideaView"/>
         </div>
         <div v-for="(subArray,index) in passedIdeaList"
         :key="index" class="container d-flex justify-content-center align-item-center">
-            <VoteCard :title="subArray[0]" class="styleBox styleButton" action="Proposal Passed"  />
+            <VoteCard :title="subArray[0]" class="styleBox styleButton"  :handleViewClick="() => handleView(subArray)"  action="Proposal Passed" linkName="ideaView"  />
         </div>
         <div v-for="(subArray,index) in rejectedIdeaList"
         :key="index" class="container d-flex justify-content-center align-item-center">
-            <VoteCard :title="subArray[0]" class="styleBox2 styleButton" action="Proposal Rejected"  />
+            <VoteCard :title="subArray[0]" class="styleBox2 styleButton"  :handleViewClick="() => handleView(subArray)" action="Proposal Rejected" linkName="ideaView" />
         </div>
         <div
           class="d-flex justify-content-between p-2 bottomBox"
         >
-          <ProposalCard
+          <ProposalCard 
             linkName="ideaProposal"
             heading="Idea Proposal"
             desc="Any unique idea for the project click the button below."
           />
-          <chatBot />
+          <chatBot  />
         </div>
         <button
           v-if="$store.state.a.user_info.is_prof === true"
@@ -56,14 +56,14 @@ export default {
     }
   },
   async created() {
-    const members = this.$store.state.e.cur_Selected.project_members;
+    const members = await this.$store.state.e.cur_Selected.project_members;
     console.log("ideass");
     console.log(members);
-    // for (let i = 0; i < members.length; i++) {
-    //   if (members[i].username === this.$store.state.a.username)
-    //     this.isMember = true;
-    // }
-    // console.log(this.isMember);
+    for (let i = 0; i < members.length; i++) {
+      if (members[i].username === this.$store.state.a.username)
+        this.isMember = true;
+    }
+    console.log(this.isMember);
     //location.reload(true);
     console.log(this.ideaList);
     console.log('Heyy');
@@ -91,12 +91,21 @@ export default {
       const payload = this.$store.state.e.cur_Selected;
       this.$store.commit('c/curSelected',idea);
       await this.$store.dispatch("c/getIdeas",payload);
+      console.log(this.$store.state.c.isRejected);
       if(!(this.$store.state.c.isRejected)){
       await this.$store.dispatch('c/Vote_on_Idea');
      
       this.$store.dispatch("c/getIdeas",payload);
       }
+      this.$store.state.c.isRejected=false;
     },
+    handleView(idea){
+      console.log('Hii');
+      console.log(idea[0]);
+      this.$store.commit('c/curSelected',idea);
+      console.log(this.$store.state.c.cur_SelectedIdea);
+      
+    }
     // getIdeas(){
     //   this.$store.dispatch("c/getIdeas");
     // }

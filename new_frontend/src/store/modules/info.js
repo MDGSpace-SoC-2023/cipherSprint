@@ -14,7 +14,7 @@ const info_module={
         skills :" ",
         language : " ",
         projects:" ",
-        message1:" ",
+        github:" ",
         organization :" ",
         post : " ",
         responsibilities:" ",
